@@ -7,7 +7,7 @@ const imageDirectory = './public/images/fotos';
 
 const imageFiles = fs.readdirSync(imageDirectory)
   .filter((file) => file.endsWith('.jpg') || file.endsWith('.png')) 
-  .map((file) => `/images/${file}`); 
+  .map((file) => `/images/fotos/${file}`); 
 ---
 
 <Layout title="Fotos">
@@ -33,3 +33,4 @@ const imageFiles = fs.readdirSync(imageDirectory)
   <!-- Carregar o script para manipulação da troca de imagem no cliente -->
   <script type="module" src="/scripts/changeImage.js" client:load></script>
 </Layout>
+\\
