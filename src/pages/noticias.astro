@@ -1,0 +1,28 @@
+---
+import { noticias } from '../data/noticias'; // Importando as notícias
+import Layout from '../layouts/Layout.astro';
+
+const formatarData = (data) => {
+  return new Date(data).toLocaleDateString('pt-BR'); // Formata a data no formato dd/mm/aaaa
+}
+---
+
+<Layout title="Todas as Notícias">
+  <h1>Notícias</h1>
+
+  {noticias.sort((a, b) => new Date(b.data) - new Date(a.data)).map((noticia) => (
+    <article key={noticia.id}>
+      <a href={`/noticias/${noticia.id}`} class="noticia-link"> {/* Link envolvendo toda a notícia */}
+        <div class="imagem-container">
+          <img src={noticia.imagem} alt={`Imagem da notícia ${noticia.titulo}`} class="imagemnews" />
+        </div>
+        <div class="info-container">
+          <h2>{noticia.titulo}</h2> {/* Título clicável */}
+          <p>{formatarData(noticia.data)}</p>
+          <p>{noticia.resumo}</p>
+        </div>
+      </a>
+      <a class="leiamais" href={`/noticias/${noticia.id}`}>Leia mais</a>
+    </article>
+  ))}
+</Layout>
