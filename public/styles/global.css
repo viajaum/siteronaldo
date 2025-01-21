@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-  max-width: 1200px; /* Define a largura máxima */
+  max-width: 800px; /* Define a largura máxima */
   margin: 0 auto; /* Centraliza o conteúdo horizontalmente */
   padding: 0; /* Adiciona espaçamento nas laterais para telas menores */
 }
