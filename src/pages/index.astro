@@ -1,54 +1,911 @@
 ---
-import { noticias } from '../data/noticias'; // Importando as notícias
-import Layout from '../layouts/Layout.astro';
-import Carousel from '../components/Carousel.astro';
+// src/pages/index.astro
+import Banner from '../components/Banner.astro';
+import Menu from '../components/Menu.astro';
+import Rodape from '../components/Rodape.astro';
+import { noticias } from '../data/noticias';
+import GooglePhotosCarousel from '../components/GooglePhotosCarousel.astro';
 
-// Função para formatar a data no formato dd/mm/aaaa
-const formatarData = (data) => {
-  return new Date(data).toLocaleDateString('pt-BR');
+// Funções auxiliares
+const formatarData = (data) => new Date(data).toLocaleDateString('pt-BR');
+
+// Mapeamento de categorias para URLs
+const categoriasUrls = {
+  'Notícias': '/noticias',
+  'Agendas': '/agendas',
+  'Artigos': '/artigos',
+  'Produção Legislativa': '/producao'
+};
+
+// Pegar as últimas 6 notícias ordenadas por data
+const ultimasNoticias = noticias
+  .sort((a, b) => new Date(b.data) - new Date(a.data))
+  .slice(0, 6);
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronaldo Quadrado - PT Pelotas</title>
+    <style>
+        /* ===== ESTILOS GLOBAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #444040;
+            background-color: #fc7804;
+        }
+
+        .main-container {
+            max-width: 830px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* ===== CORES DAS SEÇÕES ===== */
+        section {
+            padding: 40px 0;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        #geral {
+            background-color: #ffffff; /* Branco */
+        }
+        
+        #ultimas-noticias {
+            background-color: #ffffff; /* Branco */
+        }
+        
+        #galeria {
+            background-color: #d42f2e; /* Vermelho */
+            color: white;
+        }
+        
+        #redes-sociais {
+            background-color: #ffe300; /* Amarelo */
+        }
+        
+        #contato {
+            background-color: #e8f5e9; /* Verde claro */
+        }
+
+        .conteudo-centralizado {
+            max-width: 830px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== SEÇÃO DO VÍDEO ===== */
+        .video-container {
+            width: 100%;
+            position: relative;
+            margin-bottom: -200px;
+        }
+        
+        /* ===== BOTÃO WHATSAPP ===== */
+   /* Botão WhatsApp flutuante */
+   .whatsapp-btn {
+        position: fixed;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.5s ease;
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Estado inicial do botão grande (escondido) */
+    .whatsapp-btn-lg {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 25px; /* Começa com o mesmo tamanho do pequeno */
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.5s ease;
+        transform: scale(1);
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%) scale(1);
+    }
+    
+    /* Estado final do botão grande (quando visível) */
+    .whatsapp-btn-lg.ativo {
+        padding: 16px 35px;
+        font-size: 1.2rem;
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+    }
+    
+    /* Container para a transição */
+    .whatsapp-transition-container {
+        position: relative;
+        height: 80px; /* Altura suficiente para a transição */
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    /* Quando estiver na seção de contato, esconder o botão flutuante */
+    #contato .whatsapp-btn {
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    #contato .whatsapp-btn-lg {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+        /* SEÇÃO QUEM É */
+        .quem-e-container {
+            max-width: 830px;
+            width: 100%;
+            position: relative;
+            margin: 40px auto;
+        }
+
+        .quem-e-imagem {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .quem-e-texto {
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 45%;
+            max-width: 400px;
+            color: white;
+            padding: 20px;
+        }
+
+        /* ===== SEÇÃO DE NOTÍCIAS ===== */
+        .noticias-lista {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .noticia-item {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .noticia-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .noticia-imagem-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        
+        .noticia-imagem {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .noticia-categoria {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            padding: 3px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 3px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            z-index: 2;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .noticia-categoria:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .noticia-link-titulo {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .noticia-link-titulo:hover h3 {
+            color: #fc7804;
+        }
+        
+        .noticia-data {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .noticia-resumo {
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        /* ===== BOTÕES ===== */
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #fc7804;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background-color: #e06b00;
+        }
+
+        #galeria {
+    background-color: #d42f2e;
+    color: white;
+    padding: 120px 0 40px 0; /* Aumentei o top para 60px */
+    height: 500px;
+    display: flex;
+    align-items: center;
 }
 
-// Seleciona as últimas 3 notícias
-const ultimasNoticias = noticias
-  .sort((a, b) => new Date(b.data) - new Date(a.data)) // Ordena por data, da mais recente para a mais antiga
-  .slice(0, 3); // Pega apenas as 3 primeiras
----
-<Layout title="Ronaldo Quadrado - PT">
-    <!-- Banner de Abertura -->
-    <img src="/images/banner.svg" alt="Banner de Abertura" class="banner-image" />
+#galeria .conteudo-centralizado {
+    width: 100%;
+    max-width: 830px;
+    margin: 20px auto;
+    padding: 40px 20px;
+    text-align: left; /* Alinhamento à esquerda */
+}
 
-    <!-- Carrossel -->
-    <div class="content-container">
-        <div class="slider-container">
-            <Carousel />
+#galeria h2 {
+    padding: 40px;
+    text-align: left; /* Título à esquerda */
+    margin-bottom: 20px;
+    font-size: 2rem; /* Tamanho aumentado */
+}
+
+.carrossel-container {
+    height: 400px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carrossel {
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    height: 100%;
+    display: none;
+    text-align: center;
+}
+
+.slide.ativo {
+    display: block;
+    animation: fade 1s;
+}
+
+.slide img {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@keyframes fade {
+    from { opacity: .4 }
+    to { opacity: 1 }
+}
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .video-container {
+                margin-bottom: -80px;
+            }
+                        
+            .noticias-lista {
+                grid-template-columns: 1fr;
+            }
+            
+            .noticia-categoria {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+            }
+
+            .quem-e-texto {
+                position: relative;
+                width: calc(100% - 40px);
+                max-width: none;
+                top: auto;
+                right: auto;
+                margin: -30px 20px 0;
+                background-color: rgba(0,0,0,0.7);
+            }
+        }
+/* Seção Redes Sociais */
+#redes-sociais {
+    background-color: #ffe300; /* Amarelo */
+    padding: 80px 0; /* Mais espaço vertical */
+    text-align: center;
+}
+
+.redes-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Espaço maior entre os ícones */
+    flex-wrap: wrap;
+    margin: 50px auto 0; /* 50px top, auto laterais, 0 bottom */
+    max-width: 800px;
+}
+
+.rede-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px; /* Largura maior para cada item */
+    margin-bottom: 20px;
+}
+
+.circle {
+    width: 80px; /* Tamanho aumentado */
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.circle svg {
+    width: 36px; /* Ícones maiores */
+    height: 36px;
+}
+
+.rede-item:hover .circle {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.rede-nome {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 8px;
+}
+
+/* Cores específicas para cada rede */
+.whatsapp { background-color: #25D366; }
+.instagram { background-color: #E4405F; }
+.facebook { background-color: #1877F2; }
+.twitter { background-color: #1DA1F2; }
+.youtube { background-color: #FF0000; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #redes-sociais {
+        padding: 60px 0;
+    }
+    
+    .redes-container {
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .rede-item {
+        width: 100px;
+    }
+    
+    .circle {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .circle svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .redes-container {
+        gap: 20px;
+    }
+    
+    .rede-item {
+        width: 80px;
+    }
+    
+    .circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .rede-nome {
+        font-size: 0.9rem;
+    }
+}
+/* Botão WhatsApp grande na seção de contato */
+.whatsapp-btn-lg {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #25D366;
+    color: white;
+    padding: 16px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    margin: 20px 0;
+}
+
+.whatsapp-btn-lg:hover {
+    transform: scale(1.05);
+    background-color: #128C7E;
+}
+
+.whatsapp-btn-lg svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Esconde o botão flutuante quando estiver na seção de contato */
+#contato .whatsapp-btn {
+    display: none;
+}
+  /* Estilos do Carrossel */
+  /* Estilos do Carrossel - ATUALIZADOS */
+  #galeria {
+    background-color: #d42f2e;
+    color: white;
+    padding: 80px 0;  /* Aumentei o padding */
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carrossel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 400px;  /* Altura fixa do container */
+  }
+
+  .carrossel {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+  }
+
+  .slide {
+    min-width: 100%;
+    position: relative;
+    display: none;
+    text-align: center;  /* Centralizar imagens */
+  }
+
+  .slide.ativo {
+    display: block;
+    animation: fade 0.5s;
+  }
+
+  .slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;  /* Mudado para 'contain' para mostrar a imagem completa */
+    margin: 0 auto;  /* Centralizar horizontalmente */
+    display: block;
+  }
+
+  /* Restante do CSS permanece igual */
+  @keyframes fade {
+    from { opacity: 0.6 }
+    to { opacity: 1 }
+  }
+
+  .carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    z-index: 10;
+    transition: all 0.3s;
+  }
+
+  .carrossel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .anterior {
+    left: 20px;
+  }
+
+  .proximo {
+    right: 20px;
+  }
+
+  /* Estilos específicos para o botão "Ver mais fotos" */
+  .btn-container {
+    position: absolute;
+    bottom: 60px;  /* Posiciona o botão na parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 830px;
+    padding: 0 20px;
+    z-index: 5;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: white;
+    color: #d42f2e;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid white;
+  }
+
+  .btn:hover {
+    background-color: transparent;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    #galeria {
+      height: auto;
+      padding: 60px 0;
+    }
+    
+    .carrossel-container {
+      height: 300px;
+    }
+    
+    .btn-container {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+    }
+  }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const whatsappBtn = document.querySelector('.whatsapp-btn');
+            const whatsappBtnLg = document.querySelector('.whatsapp-btn-lg');
+            const contatoSection = document.getElementById('contato');
+            const transitionContainer = document.createElement('div');
+            transitionContainer.className = 'whatsapp-transition-container';
+            
+            // Inserir o container de transição antes da seção de contato
+            contatoSection.insertBefore(transitionContainer, contatoSection.firstChild);
+            
+            // Observar quando o botão chega perto da seção de contato
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Quando o container de transição está visível
+                        whatsappBtn.style.opacity = '0';
+                        whatsappBtn.style.visibility = 'hidden';
+                        
+                        // Mostrar e animar o botão grande
+                        whatsappBtnLg.classList.add('ativo');
+                        
+                        // Posicionar o botão grande no lugar do flutuante
+                        const btnRect = whatsappBtn.getBoundingClientRect();
+                        whatsappBtnLg.style.position = 'fixed';
+                        whatsappBtnLg.style.left = `${btnRect.left}px`;
+                        whatsappBtnLg.style.bottom = `${btnRect.bottom}px`;
+                        whatsappBtnLg.style.transform = `translateX(-50%)`;
+                        
+                        // Depois de um pequeno delay, animar para a posição final
+                        setTimeout(() => {
+                            whatsappBtnLg.style.position = 'relative';
+                            whatsappBtnLg.style.left = 'auto';
+                            whatsappBtnLg.style.bottom = 'auto';
+                            whatsappBtnLg.style.transform = 'none';
+                        }, 100);
+                    } else {
+                        // Quando sai da área de transição
+                        whatsappBtn.style.opacity = '1';
+                        whatsappBtn.style.visibility = 'visible';
+                        whatsappBtnLg.classList.remove('ativo');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observar o container de transição
+            observer.observe(transitionContainer);
+        });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.slide');
+    const btnAnterior = document.querySelector('.anterior');
+    const btnProximo = document.querySelector('.proximo');
+    let currentSlide = 0;
+    
+    // Mostrar slide inicial
+    showSlide(currentSlide);
+    
+    // Event listeners para os botões
+    btnProximo.addEventListener('click', nextSlide);
+    btnAnterior.addEventListener('click', prevSlide);
+    
+    // Função para avançar slide
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+    
+    // Função para voltar slide
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+    
+    // Função para mostrar slide específico
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('ativo', i === index);
+      });
+    }
+    
+    // Opcional: Auto-avanço
+    let slideInterval = setInterval(nextSlide, 5000);
+    
+    // Pausar ao passar o mouse
+    const carrossel = document.querySelector('.carrossel-container');
+    carrossel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    carrossel.addEventListener('mouseleave', () => {
+      slideInterval = setInterval(nextSlide, 5000);
+    });
+  });
+    </script>
+</head>
+<body>
+    <!-- Banner no topo da página -->
+    <Banner />
+    
+    <!-- Menu sticky -->
+    <Menu />
+    
+    <!-- Container do vídeo -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline style="width: 100%; display: block;">
+            <source src="/video.mp4" type="video/mp4">
+            <source src="/video.webm" type="video/webm">
+        </video>
+    </div>
+
+    <!-- Botão do WhatsApp -->
+    <a href="https://wa.me/SEUNUMERO" class="whatsapp-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24" height="24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Fale com a gente
+    </a>
+
+    <main>
+        <!-- Seção "Quem é?" -->
+        <div id="queme" class="quem-e-container">
+            <img src="/images/quem-e-imagem.jpg" alt="Ronaldo Quadrado" class="quem-e-imagem">
+            <div class="quem-e-texto">
+                <h2>Quem é?</h2>
+                <p>Ronaldo Quadrado é um político comprometido com a cidade de Pelotas, filiado ao PT e dedicado a melhorar a vida dos cidadãos através de ações legislativas eficientes.</p>
+            </div>
         </div>
-        <!-- Botão "Mais fotos" -->
-        <div class="button-container">
-            <a href="/fotos" class="button-link">Mais fotos</a>
-        </div>
-	</div>
-        <!-- Seção de Últimas Notícias -->
-        <section class="ultimas-noticias">
-            <h2>Últimas Notícias</h2>
-            {ultimasNoticias.map((noticia) => (
-                <article key={noticia.id} class="noticia-item">
-                    <a href={`/noticias/${noticia.id}`} class="noticia-link"> 
-                    <div class="imagem-container">
-                        <img src={noticia.imagem} alt={`Imagem da notícia ${noticia.titulo}`} class="imagemnews" />
-                    </div>
-                    <div class="info-container">
-                        <h3>{noticia.titulo}</h3>
-                        <p>{formatarData(noticia.data)}</p>
-                        <p>{noticia.resumo}</p>
-                        <a class="leiamais" href={`/noticias/${noticia.id}`}>Leia mais</a>
-                    </div>
-                    </a>
-                </article>
-            ))}
+
+        <!-- Seção Geral -->
+        <section id="geral">
+            <div class="conteudo-centralizado">
+                <h2>Geral</h2>
+                <div style="margin-top: 15px;">
+                    <a href="/agendas">Agendas</a> |
+                    <a href="/noticias">Notícias</a> |
+                    <a href="/artigos">Artigos</a> |
+                    <a href="/producao">Produção Legislativa</a>
+                </div>
+            </div>
         </section>
 
+        <!-- Seção de Últimas Notícias -->
+        <section id="ultimas-noticias">
+            <div class="conteudo-centralizado">
+                <div class="noticias-lista">
+                    {ultimasNoticias.map((noticia) => (
+                        <article class="noticia-item" key={noticia.id}>
+                            <div class="noticia-imagem-container">
+                                <a href={`/noticias/${noticia.id}`}>
+                                    <img src={noticia.imagem} alt={noticia.titulo} class="noticia-imagem" />
+                                </a>
+                                <a href={categoriasUrls[noticia.categoria]}" 
+                                   class="noticia-categoria">
+                                    {noticia.categoria}
+                                </a>
+                            </div>
+                            <div class="noticia-conteudo">
+                                <a href={`/noticias/${noticia.id}`} class="noticia-link-titulo">
+                                    <h3>{noticia.titulo}</h3>
+                                </a>
+                                <p class="noticia-data">{formatarData(noticia.data)}</p>
+                                <p class="noticia-resumo">{noticia.resumo}</p>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+<!-- Seção Galeria -->
+<section id="galeria" style="height: 600px;">  <!-- Altura aumentada para 600px -->
+  <div class="conteudo-centralizado">
+    <h2>Fotos</h2>
+    <div class="carrossel-container">
+      <div class="carrossel">
+        <div class="slide ativo">
+          <img src="/images/fotos/foto1.jpg" alt="Descrição da foto 1" style="max-height: 400px;">  <!-- Altura fixa das fotos -->
+        </div>
+        <div class="slide">
+          <img src="/images/fotos/foto2.jpg" alt="Descrição da foto 2" style="max-height: 400px;">
+        </div>
+        <div class="slide">
+          <img src="/images/fotos/foto3.jpg" alt="Descrição da foto 3" style="max-height: 400px;">
+        </div>
+      </div>
+      <button class="carrossel-btn anterior" aria-label="Foto anterior">❮</button>
+      <button class="carrossel-btn proximo" aria-label="Próxima foto">❯</button>
+    </div>
+    <div class="btn-container" style="text-align: left; margin-top: 40px; visibility: visible;">  <!-- Container do botão visível -->
+      <a href="/fotos" class="btn" style="background-color: white; color: #d42f2e; padding: 12px 25px; font-size: 1.1rem;">Ver mais fotos</a>
+    </div>
+  </div>
+</section>
+
         
-<div class="ver-mais">
-    <a href="/noticias" class="button-link">Ver todas as notícias</a>
-</div>
-</Layout>
+<!-- Seção Redes Sociais -->
+<section id="redes-sociais">
+    <div class="conteudo-centralizado">
+        <h2 style="font-size: 2.2rem; margin-bottom: 10px; color: #333;">Redes Sociais</h2>
+        <p style="color: #555; margin-bottom: 20px; font-size: 1.1rem;">Acompanhe nossas redes</p>
+        
+        <div class="redes-container">
+            <div class="rede-item">
+                <a href="#" class="circle whatsapp" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                </a>
+                <span class="rede-nome">WhatsApp</span>
+            </div>
+            
+            <div class="rede-item">
+                <a href="#" class="circle instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.3 2.3.5.5.2.9.5 1.3.9s.7.8.9 1.3c.2.4.4 1.1.5 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.9-.5 2.3a3.7 3.7 0 0 1-.9 1.3 3.7 3.7 0 0 1-1.3.9c-.4.2-1.1.4-2.3.5-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.3-2.3-.5a3.7 3.7 0 0 1-1.3-.9 3.7 3.7 0 0 1-.9-1.3c-.2-.4-.4-1.1-.5-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.9.5-2.3.2-.5.5-.9.9-1.3.4-.4.8-.7 1.3-.9.4-.2 1.1-.4 2.3-.5C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.1.1 5.9.2 5 .5 4.2.9 3.3 1.3 2.6 2 2 2.6 1.4 3.2.9 4.1.6 5.3.2 6.5 0 6.9 0 12c0 5.1.2 5.5.6 6.7.3 1.2.8 2.1 1.4 2.7.6.6 1.5 1.1 2.7 1.4C6.5 22.8 6.9 23 12 23s5.5-.2 6.7-.6c1.2-.3 2.1-.8 2.7-1.4.6-.6 1.1-1.5 1.4-2.7.4-1.2.6-1.6.6-6.7 0-5.1-.2-5.5-.6-6.7-.3-1.2-.8-2.1-1.4-2.7C20.9 1.9 20 1.4 18.8 1.1 17.6.7 17.2.5 12 .5zm0 5.3a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                </svg>
+                </a>
+                <span class="rede-nome">Instagram</span>
+            </div>
+            
+            <div class="rede-item">
+                <a href="#" class="circle facebook" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M22.675 0H1.325C.593 0 0 .594 0 1.326V22.67c0 .73.593 1.325 1.325 1.325h11.495v-9.847H9.692V10.41h3.128V8.017c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.738h-3.12V24h6.116c.73 0 1.324-.594 1.324-1.325V1.326C24 .594 23.405 0 22.675 0"/>
+                </svg>
+                </a>
+                <span class="rede-nome">Facebook</span>
+            </div>
+            
+            <div class="rede-item">
+                <a href="#" class="circle twitter" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.609 1.794-1.574 2.163-2.723-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .39.044.765.127 1.124C7.728 8.087 4.1 6.128 1.671 3.149c-.427.722-.666 1.561-.666 2.475 0 1.708.87 3.215 2.188 4.099-.807-.026-1.566-.247-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.085.631 1.953 2.445 3.377 4.6 3.417-1.68 1.318-3.809 2.103-6.102 2.103-.39 0-.779-.023-1.17-.067 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14-7.496 14-13.986 0-.209 0-.423-.016-.637.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/>
+                </svg>
+                </a>
+                <span class="rede-nome">Twitter</span>
+            </div>
+            
+            <div class="rede-item">
+                <a href="#" class="circle youtube" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.083-2.093C19.918 3.6 12 3.6 12 3.6s-7.918 0-9.415.493a2.96 2.96 0 0 0-2.083 2.093A30.026 30.026 0 0 0 0 12a30.026 30.026 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.083 2.093C4.082 20.4 12 20.4 12 20.4s7.918 0 9.415-.493a2.96 2.96 0 0 0 2.083-2.093A30.026 30.026 0 0 0 24 12a30.026 30.026 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                </a>
+                <span class="rede-nome">YouTube</span>
+            </div>
+        </div>
+    </div>
+</section>
+        
+<!-- Seção Contato -->
+<section id="contato">
+    <div class="conteudo-centralizado">
+        <h2>Contato</h2>
+        <div class="whatsapp-transition-container">
+            <a href="https://wa.me/SEUNUMERO" class="whatsapp-btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Fale com a gente pelo WhatsApp
+            </a>
+        </div>
+        <!-- Outras informações de contato... -->
+    </div>
+</section>
+    </main>
+        <Rodape />
+
+</body>
+</html>

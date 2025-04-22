@@ -1,0 +1,39 @@
+---
+// src/components/Banner.astro
+---
+
+<style>
+    .banner {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+  
+    .fundo {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  
+    .conteudo {
+      position: relative;
+      max-width: 830px;
+      margin: 0 auto;
+      height: 100%;
+    }
+  
+    .sobreposta {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+  
+  <section class="banner">
+    <img src="/images/fundo.png" alt="Fundo" class="fundo" />
+  
+    <div class="conteudo">
+      <!-- Imagem sobreposta dentro do conteúdo centralizado -->
+      <img src="/images/logo.png" alt="Logo sobreposto" class="sobreposta" />
+  

@@ -1,0 +1,107 @@
+---
+// src/components/Rodape.astro
+---
+
+<style>
+    .rodape {
+      background-color: #444040;
+      color: white;
+      padding: 2rem 1rem;
+      font-family: sans-serif;
+    }
+  
+    .rodape-container {
+      max-width: 830px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+  
+    .rodape-coluna h3 {
+      color: #fff;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+  
+    .rodape-coluna ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .rodape-coluna li {
+      margin-bottom: 0.5rem;
+    }
+  
+    .rodape-coluna a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+  
+    .rodape-coluna a:hover {
+      color: #fff;
+    }
+  
+    .rodape-base {
+      color: #aaa;
+      text-align: center;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+  
+    @media (max-width: 768px) {
+      .rodape-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .rodape-coluna {
+        border-bottom: 1px solid #555;
+        padding-bottom: 1.5rem;
+      }
+      
+      .rodape-coluna:last-child {
+        border-bottom: none;
+      }
+    }
+    .ze {
+        max-width: 180px;
+    }
+  </style>
+  
+  <footer class="rodape">
+    <div class="rodape-container">
+      <div class="rodape-coluna">
+        <ul>
+          <h3>Links:</h3>
+            <li><img src="/imagens/pt.org.br.png" alt="PT" class="PT" /></li>
+            <li><img src="/imagens/ze.png" alt="Zé Nunes" class="ze" /></li>
+        <li><img src="/imagens/alexandre.png" alt="Alexandre" class="alexandre" /></li>
+        </ul>
+      </div>
+      
+      <div class="rodape-coluna">
+        <ul>
+          <li><img src="/imagens/ptrs.png" alt="PT - RS" class="PT-RS"></li>
+          <li><img src="/imagens/ptassembleia.png" alt="PT na Assembléia" class="PTassembleia"></li>
+          <li><img src="/imagens/ptcamara.png" alt="PT na Câmara" class="PTcamara"></li>
+        </ul>
+      </div>
+      
+      <div class="rodape-coluna">
+        <ul>
+            <li><img src="/imagens/ptsenado.png" alt="PT no Senado" class="PTsenado"></li>
+            <li><img src="/imagens/lula.png" alt="Lula" class="lula"></li>
+            <li><img src="/imagens/prefeitura.png" alt="Prefeitura" class="prefeitura"></li>
+        </ul>
+      </div>
+      
+    </div>
+    
+    <div class="rodape-base">
+      <p>Rua XV de Novembro nº 207 - Gabinete 13</p>
+      <p>Telefone (53)30261001 Ramal 448</p>
+    </div>
+  </footer>

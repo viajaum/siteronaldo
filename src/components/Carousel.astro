@@ -1,70 +1,173 @@
 ---
-import '@splidejs/splide/dist/css/splide.min.css';  // Importando o CSS do Splide
+// src/components/Carousel.astro
+import { useState } from 'preact/hooks';
 
-const images = [
-{
-    src: '/images/foto1.jpg',
-    alt: 'Imagem 1',
-  },
-  {
-    src: '/images/foto2.jpg',
-    alt: 'Imagem 2',
-  },
-  {
-    src: '/images/foto3.jpg',
-    alt: 'Imagem 3',
-  },
-  {
-    src: '/images/foto4.jpg',
-    alt: 'Imagem 4',
-  },
-];
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+}
+
+const { images } = Astro.props;
 ---
 
-<!-- Container do carrossel -->
-<div class="splide" id="splide-carousel">
-  <div class="splide__track">
-    <ul class="splide__list">
-      {images.map((image) => (
-        <li class="splide__slide" key={image.src}>
-          <img class="carousel-image" src={image.src} alt={image.alt} />
-        </li>
-      ))}
-    </ul>
+<div class="carousel-container">
+  <div class="carousel">
+    {images.map((image, index) => (
+      <div class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+        <img 
+          src={image.src} 
+          alt={image.alt} 
+          loading="lazy"
+          width="800"
+          height="600"
+        />
+      </div>
+    ))}
+  </div>
+  
+  <button class="carousel-button prev" aria-label="Previous image">❮</button>
+  <button class="carousel-button next" aria-label="Next image">❯</button>
+  
+  <div class="carousel-dots">
+    {images.map((_, index) => (
+      <button 
+        class={`dot ${index === 0 ? 'active' : ''}`} 
+        data-index={index}
+        aria-label={`Go to image ${index + 1}`}
+      ></button>
+    ))}
   </div>
 </div>
 
-<!-- Inicializando o Splide com JavaScript -->
+<style>
+  .carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slide {
+    min-width: 100%;
+    transition: transform 0.5s ease;
+    display: none;
+  }
+  
+  .slide.active {
+    display: block;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    z-index: 10;
+    transition: background 0.3s;
+  }
+  
+  .carousel-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .prev {
+    left: 15px;
+  }
+  
+  .next {
+    right: 15px;
+  }
+  
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 8px;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .dot.active {
+    background: #333;
+  }
+</style>
+
 <script>
-  import Splide from '@splidejs/splide';
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const splide = new Splide('#splide-carousel', {
-      type       : 'fade',         // Tipo de transição
-      heightRatio: 0.5,            // Ajusta o espaço do carrossel
-      autoplay  : true,            // Ativa o autoplay
-      interval  : 2500,            // Intervalo de troca de imagem (2.5s)
-      arrows    : true,            // Exibe as setas de navegação
-      pagination: true,            // Exibe a paginação
-      loop      : false,           // Desabilita o loop automático
-    }).mount();
-
-    // Verifica quando o carrossel chega ao final e vai para a primeira imagem
-    splide.on('moved', function () {
-      if (splide.index === splide.length - 1) {
-        setTimeout(() => {
-          splide.go(0);  // Vai para a primeira imagem após a última
-        }, 1000);  // Atraso para garantir que a transição termine antes de reiniciar
-      }
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentIndex);
+      });
+      
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+    
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateCarousel();
+    }
+    
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentIndex = parseInt(dot.dataset.index);
+        updateCarousel();
+      });
+    });
+    
+    // Auto-advance (optional)
+    let interval = setInterval(nextSlide, 5000);
+    
+    // Pause on hover
+    const carousel = document.querySelector('.carousel-container');
+    carousel.addEventListener('mouseenter', () => clearInterval(interval));
+    carousel.addEventListener('mouseleave', () => {
+      interval = setInterval(nextSlide, 5000);
     });
   });
 </script>
-
-<!-- Estilos para garantir que as imagens fiquem inteiras -->
-<style is:global>
-  #splide-carousel .splide__slide img {
-    width: 100%;                 /* Garante que as imagens ocupem toda a largura */
-    height: auto;                /* Mantém a proporção das imagens */
-    object-fit: contain;         /* Ajusta as imagens para não cortá-las */
-  }
-</style>

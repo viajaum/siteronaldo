@@ -1,0 +1,88 @@
+---
+const photoUrls = [
+  'https://drive.google.com/thumbnail?id=1vfh66VLnLOric0jteETNvKhaFivxTHEP&sz=w1000',
+  'https://drive.google.com/thumbnail?id=1UFu7QmGMB4dzll64T9db721xefY_aqXT=w1000',
+  // Adicione outros IDs mantendo o padrão
+];
+---
+
+<div class="carrossel">
+  {photoUrls.map((url, index) => (
+    <div class="slide" key={index}>
+      <img 
+        src={url} 
+        alt={`Foto ${index + 1}`} 
+        loading="lazy"
+      />
+    </div>
+  ))}
+  <button class="anterior">❮</button>
+  <button class="proximo">❯</button>
+</div>
+
+<style>
+  .carrossel {
+    position: relative;
+    max-width: 830px;
+    max-height: 830px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .slide {
+    display: none;
+    text-align: center;
+  }
+  
+  .slide.ativo {
+    display: block;
+    animation: fade 1s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  .anterior, .proximo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .anterior { left: 10px; }
+  .proximo { right: 10px; }
+</style>
+
+<script>
+  let slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => slide.classList.remove('ativo'));
+    
+    slideIndex++;
+    if (slideIndex > slides.length) slideIndex = 1;
+    
+    slides[slideIndex-1].classList.add('ativo');
+    setTimeout(showSlides, 5000); // Muda a cada 5 segundos
+  }
+  
+  // Controles manuais
+  document.querySelector('.proximo').addEventListener('click', () => {
+    slideIndex++;
+    showSlides();
+  });
+  
+  document.querySelector('.anterior').addEventListener('click', () => {
+    slideIndex--;
+    showSlides();
+  });
+</script>

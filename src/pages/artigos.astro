@@ -1,0 +1,111 @@
+---
+// src/pages/artigos/index.astro
+import Banner from '@components/Banner.astro';
+import Menu from '@components/Menu.astro';
+import { noticias } from '@data/noticias';
+
+const formatarData = (data) => {
+  return new Date(data).toLocaleDateString('pt-BR');
+}
+
+// Filtrar apenas itens da categoria "Artigos"
+const artigos = noticias.filter(item => item.categoria === "Artigos");
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artigos</title>
+  <style>
+    /* Estilos mantidos */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #444040;
+    }
+
+    .main-container {
+      max-width: 830px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .artigos-container {
+      margin-top: 20px;
+    }
+
+    article {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .artigo-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: 20px;
+    }
+
+    .imagem-container {
+      flex: 0 0 300px;
+    }
+
+    .imagemartigo {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .info-container {
+      flex: 1;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .leiamais {
+      display: inline-block;
+      margin-top: 10px;
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .leiamais:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <Banner />
+  <Menu />
+
+  <div class="main-container">
+    <h1>Artigos</h1>
+
+    <div class="artigos-container">
+      {artigos.sort((a, b) => new Date(b.data) - new Date(a.data)).map((artigo) => (
+        <article key={artigo.id}>
+          <a href={`/noticias/${artigo.id}`} class="artigo-link">  <!-- Alterado para /noticias/ -->
+            <div class="imagem-container">
+              <img src={artigo.imagem} alt={`Imagem do artigo ${artigo.titulo}`} class="imagemartigo" />
+            </div>
+            <div class="info-container">
+              <h2>{artigo.titulo}</h2>
+              <p>{formatarData(artigo.data)}</p>
+              <p>{artigo.resumo}</p>
+            </div>
+          </a>
+          <a class="leiamais" href={`/noticias/${artigo.id}`}>Ler artigo completo</a>  <!-- Alterado para /noticias/ -->
+        </article>
+      ))}
+    </div>
+  </div>
+</body>
+</html>

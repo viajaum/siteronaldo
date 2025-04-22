@@ -1,0 +1,118 @@
+---
+// src/pages/producao-legislativa/index.astro
+import Banner from '@components/Banner.astro';
+import Menu from '@components/Menu.astro';
+import { noticias } from '@data/noticias';
+
+const formatarData = (data) => {
+  return new Date(data).toLocaleDateString('pt-BR');
+}
+
+// Filtrar apenas itens da categoria "Produção Legislativa"
+const producaoLegislativa = noticias.filter(item => item.categoria === "Produção Legislativa");
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produção Legislativa</title>
+  <style>
+    /* Estilos mantidos */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #444040;
+    }
+
+    .main-container {
+      max-width: 830px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .producao-container {
+      margin-top: 20px;
+    }
+
+    article {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .producao-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: 20px;
+    }
+
+    .imagem-container {
+      flex: 0 0 300px;
+    }
+
+    .imagemproducao {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .info-container {
+      flex: 1;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .leiamais {
+      display: inline-block;
+      margin-top: 10px;
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .leiamais:hover {
+      text-decoration: underline;
+    }
+
+    .detalhes-legislativos {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <Banner />
+  <Menu />
+
+  <div class="main-container">
+    <h1>Produção Legislativa</h1>
+
+    <div class="producao-container">
+      {producaoLegislativa.sort((a, b) => new Date(b.data) - new Date(a.data)).map((item) => (
+        <article key={item.id}>
+          <a href={`/noticias/${item.id}`} class="producao-link">  <!-- Alterado para /noticias/ -->
+            <div class="imagem-container">
+              <img src={item.imagem} alt={`Imagem da produção legislativa ${item.titulo}`} class="imagemproducao" />
+            </div>
+            <div class="info-container">
+              <h2>{item.titulo}</h2>
+              <p>{formatarData(item.data)}</p>
+              <p class="detalhes-legislativos">Projeto: {item.numeroProjeto || 'N/A'}</p>
+              <p>{item.resumo}</p>
+            </div>
+          </a>
+          <a class="leiamais" href={`/noticias/${item.id}`}>Ver detalhes</a>  <!-- Alterado para /noticias/ -->
+        </article>
+      ))}
+    </div>
+  </div>
+</body>
+</html>

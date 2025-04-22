@@ -1,28 +1,110 @@
 ---
-import { noticias } from '../data/noticias'; // Importando as notícias
-import Layout from '../layouts/Layout.astro';
+// src/pages/noticias/index.astro
+import Banner from '@components/Banner.astro';
+import Menu from '@components/Menu.astro';
+import { noticias } from '@data/noticias';
 
 const formatarData = (data) => {
-  return new Date(data).toLocaleDateString('pt-BR'); // Formata a data no formato dd/mm/aaaa
+  return new Date(data).toLocaleDateString('pt-BR');
 }
+
+// Filtrar apenas notícias da categoria "Notícias"
+const noticiasFiltradas = noticias.filter(noticia => noticia.categoria === "Notícias");
 ---
 
-<Layout title="Todas as Notícias">
-  <h1>Notícias</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #444040;
+    }
 
-  {noticias.sort((a, b) => new Date(b.data) - new Date(a.data)).map((noticia) => (
-    <article key={noticia.id}>
-      <a href={`/noticias/${noticia.id}`} class="noticia-link"> {/* Link envolvendo toda a notícia */}
-        <div class="imagem-container">
-          <img src={noticia.imagem} alt={`Imagem da notícia ${noticia.titulo}`} class="imagemnews" />
-        </div>
-        <div class="info-container">
-          <h2>{noticia.titulo}</h2> {/* Título clicável */}
-          <p>{formatarData(noticia.data)}</p>
-          <p>{noticia.resumo}</p>
-        </div>
-      </a>
-      <a class="leiamais" href={`/noticias/${noticia.id}`}>Leia mais</a>
-    </article>
-  ))}
-</Layout>
+    .main-container {
+      max-width: 830px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .noticias-container {
+      margin-top: 20px;
+    }
+
+    article {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .noticia-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: 20px;
+    }
+
+    .imagem-container {
+      flex: 0 0 300px;
+    }
+
+    .imagemnews {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .info-container {
+      flex: 1;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .leiamais {
+      display: inline-block;
+      margin-top: 10px;
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .leiamais:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <Banner />
+  <Menu />
+
+  <div class="main-container">
+    <h1>Notícias</h1>
+
+    <div class="noticias-container">
+      {noticiasFiltradas.sort((a, b) => new Date(b.data) - new Date(a.data)).map((noticia) => (
+        <article key={noticia.id}>
+          <a href={`/noticias/${noticia.id}`} class="noticia-link">
+            <div class="imagem-container">
+              <img src={noticia.imagem} alt={`Imagem da notícia ${noticia.titulo}`} class="imagemnews" />
+            </div>
+            <div class="info-container">
+              <h2>{noticia.titulo}</h2>
+              <p>{formatarData(noticia.data)}</p>
+              <p>{noticia.resumo}</p>
+            </div>
+          </a>
+          <a class="leiamais" href={`/noticias/${noticia.id}`}>Leia mais</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</body>
+</html>
