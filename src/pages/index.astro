@@ -1,0 +1,54 @@
+---
+import { noticias } from '../data/noticias'; // Importando as notícias
+import Layout from '../layouts/Layout.astro';
+import Carousel from '../components/Carousel.astro';
+
+// Função para formatar a data no formato dd/mm/aaaa
+const formatarData = (data) => {
+  return new Date(data).toLocaleDateString('pt-BR');
+}
+
+// Seleciona as últimas 3 notícias
+const ultimasNoticias = noticias
+  .sort((a, b) => new Date(b.data) - new Date(a.data)) // Ordena por data, da mais recente para a mais antiga
+  .slice(0, 3); // Pega apenas as 3 primeiras
+---
+<Layout title="Ronaldo Quadrado - PT">
+    <!-- Banner de Abertura -->
+    <img src="/images/banner.svg" alt="Banner de Abertura" class="banner-image" />
+
+    <!-- Carrossel -->
+    <div class="content-container">
+        <div class="slider-container">
+            <Carousel />
+        </div>
+        <!-- Botão "Mais fotos" -->
+        <div class="button-container">
+            <a href="/fotos" class="button-link">Mais fotos</a>
+        </div>
+	</div>
+        <!-- Seção de Últimas Notícias -->
+        <section class="ultimas-noticias">
+            <h2>Últimas Notícias</h2>
+            {ultimasNoticias.map((noticia) => (
+                <article key={noticia.id} class="noticia-item">
+                    <a href={`/noticias/${noticia.id}`} class="noticia-link"> 
+                    <div class="imagem-container">
+                        <img src={noticia.imagem} alt={`Imagem da notícia ${noticia.titulo}`} class="imagemnews" />
+                    </div>
+                    <div class="info-container">
+                        <h3>{noticia.titulo}</h3>
+                        <p>{formatarData(noticia.data)}</p>
+                        <p>{noticia.resumo}</p>
+                        <a class="leiamais" href={`/noticias/${noticia.id}`}>Leia mais</a>
+                    </div>
+                    </a>
+                </article>
+            ))}
+        </section>
+
+        
+<div class="ver-mais">
+    <a href="/noticias" class="button-link">Ver todas as notícias</a>
+</div>
+</Layout>

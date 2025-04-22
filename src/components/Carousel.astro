@@ -1,0 +1,70 @@
+---
+import '@splidejs/splide/dist/css/splide.min.css';  // Importando o CSS do Splide
+
+const images = [
+{
+    src: '/images/foto1.jpg',
+    alt: 'Imagem 1',
+  },
+  {
+    src: '/images/foto2.jpg',
+    alt: 'Imagem 2',
+  },
+  {
+    src: '/images/foto3.jpg',
+    alt: 'Imagem 3',
+  },
+  {
+    src: '/images/foto4.jpg',
+    alt: 'Imagem 4',
+  },
+];
+---
+
+<!-- Container do carrossel -->
+<div class="splide" id="splide-carousel">
+  <div class="splide__track">
+    <ul class="splide__list">
+      {images.map((image) => (
+        <li class="splide__slide" key={image.src}>
+          <img class="carousel-image" src={image.src} alt={image.alt} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<!-- Inicializando o Splide com JavaScript -->
+<script>
+  import Splide from '@splidejs/splide';
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const splide = new Splide('#splide-carousel', {
+      type       : 'fade',         // Tipo de transição
+      heightRatio: 0.5,            // Ajusta o espaço do carrossel
+      autoplay  : true,            // Ativa o autoplay
+      interval  : 2500,            // Intervalo de troca de imagem (2.5s)
+      arrows    : true,            // Exibe as setas de navegação
+      pagination: true,            // Exibe a paginação
+      loop      : false,           // Desabilita o loop automático
+    }).mount();
+
+    // Verifica quando o carrossel chega ao final e vai para a primeira imagem
+    splide.on('moved', function () {
+      if (splide.index === splide.length - 1) {
+        setTimeout(() => {
+          splide.go(0);  // Vai para a primeira imagem após a última
+        }, 1000);  // Atraso para garantir que a transição termine antes de reiniciar
+      }
+    });
+  });
+</script>
+
+<!-- Estilos para garantir que as imagens fiquem inteiras -->
+<style is:global>
+  #splide-carousel .splide__slide img {
+    width: 100%;                 /* Garante que as imagens ocupem toda a largura */
+    height: auto;                /* Mantém a proporção das imagens */
+    object-fit: contain;         /* Ajusta as imagens para não cortá-las */
+  }
+</style>

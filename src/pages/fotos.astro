@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+
+const imageDirectory = './public/images/fotos'; 
+
+const imageFiles = fs.readdirSync(imageDirectory)
+  .filter((file) => file.endsWith('.jpg') || file.endsWith('.png')) 
+  .map((file) => `/images/fotos/${file}`); 
+---
+
+<Layout title="Fotos">
+  <div class="photo-gallery">
+    <!-- Imagem Principal -->
+    <div class="main-photo-container">
+      <img id="main-photo" src={imageFiles[0]} alt="Imagem Principal" class="main-photo" />
+    </div>
+
+    <!-- Miniaturas -->
+    <div class="thumbnails">
+      {imageFiles.map((image) => (
+        <img
+          src={image}
+          alt={`Thumbnail de ${image}`}
+          class="thumbnail"
+          data-image={image} 
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Carregar o script para manipulação da troca de imagem no cliente -->
+  <script type="module" src="/scripts/changeImage.js" client:load></script>
+</Layout>
