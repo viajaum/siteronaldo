@@ -10,18 +10,17 @@
     /* Container do menu que será sticky */
     .sticky-container {
         position: sticky;
-        top: 0; /* Fixa no topo quando ativar */
+        top: 0;
         z-index: var(--sticky-z-index);
         background-color: #fff;
         transition: box-shadow 0.3s ease;
     }
 
     /* Sombra quando menu está fixo */
-    .sticky-container.sticky {
+    .sticky-container.sticky-active {
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
   
-    /* Restante do seu CSS permanece igual */
     .menu-wrapper {
         display: flex;
         justify-content: space-between;
@@ -31,6 +30,7 @@
         padding: 0.5rem 0.75rem;
     }
 
+    /* Menu principal (desktop) */
     .menu-container {
         display: flex;
         align-items: center;
@@ -119,10 +119,143 @@
     .twitter   { background-color: #1DA1F2; }
     .youtube   { background-color: #FF0000; }
     .whatsapp  { background-color: #25D366; }
+
+    /* Menu mobile */
+    .hamburger-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+    }
+
+    .hamburger-icon {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: #444040;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-icon:before,
+    .hamburger-icon:after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 3px;
+        background: #444040;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-icon:before {
+        top: -8px;
+    }
+
+    .hamburger-icon:after {
+        top: 8px;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 1000;
+        padding: 80px 20px 20px;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mobile-menu-item {
+        position: relative;
+    }
+
+    .mobile-menu-link {
+        color: #444040;
+        text-decoration: none;
+        font-size: 1.1rem;
+        display: block;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .mobile-submenu {
+        display: none;
+        padding-left: 15px;
+        margin-top: 5px;
+    }
+
+    .mobile-submenu a {
+        display: block;
+        color: #444040;
+        text-decoration: none;
+        padding: 8px 0;
+        font-size: 0.95rem;
+    }
+
+    .mobile-menu-open .hamburger-icon {
+        background: transparent;
+    }
+
+    .mobile-menu-open .hamburger-icon:before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    .mobile-menu-open .hamburger-icon:after {
+        transform: rotate(-45deg);
+        top: 0;
+    }
+
+    .mobile-social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        justify-content: center;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .menu-container {
+            display: none;
+        }
+
+        .social-icons {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: block;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
 </style>
   
 <nav class="sticky-container" id="stickyMenu">
     <div class="menu-wrapper">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
+            <span class="hamburger-icon"></span>
+        </button>
+
         <div class="menu-container">
             <span class="divider">|</span>
             <a href="/" class="menu-link">Início</a>
@@ -183,26 +316,119 @@
     </div>
 </nav>
 
+<!-- Menu mobile -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-container">
+        <a href="/" class="mobile-menu-link">Início</a>
+        <a href="/#queme" class="mobile-menu-link">Quem é?</a>
+        
+        <div class="mobile-menu-item">
+            <a href="/#geral" class="mobile-menu-link">Geral</a>
+            <div class="mobile-submenu">
+                <a href="/agendas">Agendas</a>
+                <a href="/noticias">Notícias</a>
+                <a href="/artigos">Artigos</a>
+                <a href="/producao">Produção Legislativa</a>
+            </div>
+        </div>
+        
+        <a href="/#galeria" class="mobile-menu-link">Fotos</a>
+        <a href="/#redes-sociais" class="mobile-menu-link">Redes</a>
+        <a href="/#contato" class="mobile-menu-link">Contato</a>
+        
+        <div class="mobile-social-icons">
+            <a href="#" class="circle whatsapp" aria-label="WhatsApp">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+            </a>
+
+            <a href="#" class="circle instagram" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.3 2.3.5.5.2.9.5 1.3.9s.7.8.9 1.3c.2.4.4 1.1.5 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.9-.5 2.3a3.7 3.7 0 0 1-.9 1.3 3.7 3.7 0 0 1-1.3.9c-.4.2-1.1.4-2.3.5-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.3-2.3-.5a3.7 3.7 0 0 1-1.3-.9 3.7 3.7 0 0 1-.9-1.3c-.2-.4-.4-1.1-.5-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.9.5-2.3.2-.5.5-.9.9-1.3.4-.4.8-.7 1.3-.9.4-.2 1.1-.4 2.3-.5C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.1.1 5.9.2 5 .5 4.2.9 3.3 1.3 2.6 2 2 2.6 1.4 3.2.9 4.1.6 5.3.2 6.5 0 6.9 0 12c0 5.1.2 5.5.6 6.7.3 1.2.8 2.1 1.4 2.7.6.6 1.5 1.1 2.7 1.4C6.5 22.8 6.9 23 12 23s5.5-.2 6.7-.6c1.2-.3 2.1-.8 2.7-1.4.6-.6 1.1-1.5 1.4-2.7.4-1.2.6-1.6.6-6.7 0-5.1-.2-5.5-.6-6.7-.3-1.2-.8-2.1-1.4-2.7C20.9 1.9 20 1.4 18.8 1.1 17.6.7 17.2.5 12 .5zm0 5.3a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                </svg>
+            </a>
+        
+            <a href="#" class="circle facebook" aria-label="Facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M22.675 0H1.325C.593 0 0 .594 0 1.326V22.67c0 .73.593 1.325 1.325 1.325h11.495v-9.847H9.692V10.41h3.128V8.017c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.738h-3.12V24h6.116c.73 0 1.324-.594 1.324-1.325V1.326C24 .594 23.405 0 22.675 0"/>
+                </svg>
+            </a>
+        
+            <a href="#" class="circle twitter" aria-label="Twitter">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.609 1.794-1.574 2.163-2.723-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .39.044.765.127 1.124C7.728 8.087 4.1 6.128 1.671 3.149c-.427.722-.666 1.561-.666 2.475 0 1.708.87 3.215 2.188 4.099-.807-.026-1.566-.247-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.085.631 1.953 2.445 3.377 4.6 3.417-1.68 1.318-3.809 2.103-6.102 2.103-.39 0-.779-.023-1.17-.067 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14-7.496 14-13.986 0-.209 0-.423-.016-.637.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/>
+                </svg>
+            </a>
+        
+            <a href="#" class="circle youtube" aria-label="YouTube">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.083-2.093C19.918 3.6 12 3.6 12 3.6s-7.918 0-9.415.493a2.96 2.96 0 0 0-2.083 2.093A30.026 30.026 0 0 0 0 12a30.026 30.026 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.083 2.093C4.082 20.4 12 20.4 12 20.4s7.918 0 9.415-.493a2.96 2.96 0 0 0 2.083-2.093A30.026 30.026 0 0 0 24 12a30.026 30.026 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
+        // Sticky menu functionality
         const menu = document.getElementById('stickyMenu');
         const videoContainer = document.querySelector('.video-container');
         
-        if (!menu || !videoContainer) return;
-    
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                menu.classList.toggle('sticky-active', !entry.isIntersecting);
-            },
-            { 
-                threshold: 0,
-                rootMargin: `-${menu.offsetHeight}px 0px 0px 0px`
+        if (menu && videoContainer) {
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    menu.classList.toggle('sticky-active', !entry.isIntersecting);
+                },
+                { 
+                    threshold: 0,
+                    rootMargin: `-${menu.offsetHeight}px 0px 0px 0px`
+                }
+            );
+            observer.observe(videoContainer);
+        }
+
+        // Mobile menu functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                document.body.classList.toggle('mobile-menu-open');
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.body.classList.remove('mobile-menu-open');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Toggle submenus
+            const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+            menuItems.forEach(item => {
+                const link = item.querySelector('.mobile-menu-link');
+                const submenu = item.querySelector('.mobile-submenu');
+                
+                if (link && submenu) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                    });
+                }
+            });
+        }
+
+        // Cleanup
+        return () => {
+            if (observer) observer.disconnect();
+            if (hamburgerBtn) {
+                hamburgerBtn.removeEventListener('click');
             }
-        );
-    
-        observer.observe(videoContainer);
-    
-        // Limpeza
-        return () => observer.disconnect();
+        };
     });
 </script>
