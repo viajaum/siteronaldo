@@ -1,0 +1,49 @@
+---
+// src/components/sections/QuemE.astro
+---
+
+<div id="queme" class="quem-e-container">
+    <img src="/images/quem-e-imagem.jpg" alt="Ronaldo Quadrado" class="quem-e-imagem" loading="lazy">
+    <div class="quem-e-texto">
+        <h2>Quem é?</h2>
+        <p>Ronaldo Quadrado é um político comprometido com a cidade de Pelotas, filiado ao PT e dedicado a melhorar a vida dos cidadãos através de ações legislativas eficientes.</p>
+    </div>
+</div>
+
+<style>
+.quem-e-container {
+    max-width: 830px;
+    width: 100%;
+    position: relative;
+    margin: 40px auto;
+}
+
+.quem-e-imagem {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.quem-e-texto {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 45%;
+    max-width: 400px;
+    color: white;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .quem-e-texto {
+        position: relative;
+        width: calc(100% - 40px);
+        max-width: none;
+        top: auto;
+        right: auto;
+        margin: -200px 20px 0;
+    }
+}
+</style>

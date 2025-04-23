@@ -1,0 +1,202 @@
+---
+// src/components/sections/Geral.astro
+import { noticias } from '../../data/noticias';
+
+const formatarData = (data) => new Date(data).toLocaleDateString('pt-BR');
+
+const categoriasUrls = {
+  'Notícias': '/noticias',
+  'Agendas': '/agendas',
+  'Artigos': '/artigos',
+  'Produção Legislativa': '/producao'
+};
+
+const ultimasNoticias = noticias
+  .sort((a, b) => new Date(b.data) - new Date(a.data))
+  .slice(0, 6);
+---
+
+<section id="geral">
+    <div class="conteudo-centralizado">
+        <!-- Seção de Links Gerais -->
+        <div class="secao-links">
+            <h2>Geral</h2>
+            <div class="links-rapidos">
+                {Object.entries(categoriasUrls).map(([nome, url]) => (
+                    <>
+                        <a href={url}>{nome}</a>
+                        {Object.keys(categoriasUrls).indexOf(nome) < Object.keys(categoriasUrls).length - 1 ? ' | ' : ''}
+                    </>
+                ))}
+            </div>
+        </div>
+
+        <!-- Seção de Notícias -->
+        <div class="secao-noticias">
+            <h2>Últimas Notícias</h2>
+            <div class="noticias-lista">
+                {ultimasNoticias.map((noticia) => (
+                    <article class="noticia-item" key={noticia.id}>
+                        <div class="noticia-imagem-container">
+                            <a href={`/noticias/${noticia.id}`}>
+                                <img src={noticia.imagem} alt={noticia.titulo} class="noticia-imagem" loading="lazy">
+                            </a>
+                            <a href={categoriasUrls[noticia.categoria]} class="noticia-categoria">
+                                {noticia.categoria}
+                            </a>
+                        </div>
+                        <div class="noticia-conteudo">
+                            <a href={`/noticias/${noticia.id}`} class="noticia-link-titulo">
+                                <h3>{noticia.titulo}</h3>
+                            </a>
+                            <p class="noticia-data">{formatarData(noticia.data)}</p>
+                            <p class="noticia-resumo">{noticia.resumo}</p>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+#geral {
+    background-color: #ffffff;
+    padding: 40px 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.conteudo-centralizado {
+    max-width: 830px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.secao-links {
+    margin-bottom: 40px;
+}
+
+.secao-links h2 {
+    margin-bottom: 15px;
+}
+
+.links-rapidos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.links-rapidos a {
+    color: #fc7804;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.links-rapidos a:hover {
+    color: #d42f2e;
+}
+
+/* Estilos da seção de notícias */
+.noticias-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.noticia-item {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+}
+
+.noticia-item:hover {
+    transform: translateY(-3px);
+}
+
+.noticia-imagem-container {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.noticia-imagem {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.noticia-categoria {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 3px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 2;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.noticia-categoria:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.noticia-link-titulo {
+    text-decoration: none;
+    color: inherit;
+}
+
+.noticia-link-titulo:hover h3 {
+    color: #fc7804;
+}
+
+.noticia-data {
+    color: #666;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.noticia-resumo {
+    color: #444;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .noticias-lista {
+        grid-template-columns: 1fr;
+    }
+    
+    .noticia-categoria {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+    
+    .links-rapidos {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .links-rapidos a {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .links-rapidos a:after {
+        content: none;
+    }
+}
+</style>

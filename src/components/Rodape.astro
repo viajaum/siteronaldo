@@ -1,7 +1,3 @@
----
-// src/components/Rodape.astro
----
-
 <style>
     .rodape {
       background-color: #444040;
@@ -10,75 +6,68 @@
       font-family: sans-serif;
     }
   
-    .rodape-container {
+    .rodape-conteudo {
       max-width: 830px;
       margin: 0 auto;
+    }
+  
+    .rodape-titulo {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+  
+    .rodape-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
-    }
-  
-    .rodape-coluna h3 {
-      color: #fff;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
     }
   
     .rodape-coluna ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
     }
   
-    .rodape-coluna li {
-      margin-bottom: 0.5rem;
+    .PT, .PT-RS, .PTassembleia, .PTcamara, .PTsenado, .prefeitura {
+      max-width: 180px;
     }
   
-    .rodape-coluna a {
-      color: #ccc;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-  
-    .rodape-coluna a:hover {
-      color: #fff;
-    }
-  
-    .rodape-base {
-      color: #aaa;
-      text-align: center;
-      padding: 0;
-      font-size: 0.9rem;
+    .ze, .alexandre, .lula {
+      max-width: 150px;
     }
   
     @media (max-width: 768px) {
       .rodape-container {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
       }
       
       .rodape-coluna {
-        border-bottom: 1px solid #555;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1rem;
       }
       
-      .rodape-coluna:last-child {
-        border-bottom: none;
+      .rodape-titulo {
+        margin-bottom: 1rem;
       }
     }
-    .ze {
-        max-width: 180px;
-    }
-  </style>
+</style>
   
-  <footer class="rodape">
+<footer class="rodape">
+  <div class="rodape-conteudo">
+    <h3 class="rodape-titulo">Links</h3>
+    
     <div class="rodape-container">
       <div class="rodape-coluna">
         <ul>
-          <h3>Links:</h3>
-            <li><img src="/imagens/pt.org.br.png" alt="PT" class="PT" /></li>
-            <li><img src="/imagens/ze.png" alt="Zé Nunes" class="ze" /></li>
-        <li><img src="/imagens/alexandre.png" alt="Alexandre" class="alexandre" /></li>
+          <li><img src="/imagens/pt.org.br.png" alt="PT" class="PT" /></li>
+          <li><img src="/imagens/ze.png" alt="Zé Nunes" class="ze" /></li>
+          <li><img src="/imagens/alexandre.png" alt="Alexandre" class="alexandre" /></li>
         </ul>
       </div>
       
@@ -92,16 +81,11 @@
       
       <div class="rodape-coluna">
         <ul>
-            <li><img src="/imagens/ptsenado.png" alt="PT no Senado" class="PTsenado"></li>
-            <li><img src="/imagens/lula.png" alt="Lula" class="lula"></li>
-            <li><img src="/imagens/prefeitura.png" alt="Prefeitura" class="prefeitura"></li>
+          <li><img src="/imagens/ptsenado.png" alt="PT no Senado" class="PTsenado"></li>
+          <li><img src="/imagens/lula.png" alt="Lula" class="lula"></li>
+          <li><img src="/imagens/prefeitura.png" alt="Prefeitura" class="prefeitura"></li>
         </ul>
       </div>
-      
     </div>
-    
-    <div class="rodape-base">
-      <p>Rua XV de Novembro nº 207 - Gabinete 13</p>
-      <p>Telefone (53)30261001 Ramal 448</p>
-    </div>
-  </footer>
+  </div>
+</footer>
