@@ -7,7 +7,7 @@
         --sticky-z-index: 1000;
     }
 
-    /* Container do menu que será sticky */
+    /* Container do menu sticky */
     .sticky-container {
         position: sticky;
         top: 0;
@@ -16,7 +16,6 @@
         transition: box-shadow 0.3s ease;
     }
 
-    /* Sombra quando menu está fixo */
     .sticky-container.sticky-active {
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
@@ -30,7 +29,7 @@
         padding: 0.5rem 0.75rem;
     }
 
-    /* Menu principal (desktop) */
+    /* Menu desktop */
     .menu-container {
         display: flex;
         align-items: center;
@@ -120,114 +119,161 @@
     .youtube   { background-color: #FF0000; }
     .whatsapp  { background-color: #25D366; }
 
-    /* Menu mobile */
-    .hamburger-btn {
-        display: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-        z-index: 1001;
-    }
-
-    .hamburger-icon {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: #444040;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .hamburger-icon:before,
-    .hamburger-icon:after {
-        content: '';
-        position: absolute;
-        width: 25px;
-        height: 3px;
-        background: #444040;
-        transition: all 0.3s ease;
-    }
-
-    .hamburger-icon:before {
-        top: -8px;
-    }
-
-    .hamburger-icon:after {
-        top: 8px;
-    }
-
+    /* Menu mobile - Garantindo que fique acima de tudo */
     .mobile-menu {
-        display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         background: white;
-        z-index: 1000;
-        padding: 80px 20px 20px;
-        overflow-y: auto;
+        z-index: 9999; /* Valor extremamente alto */
         transform: translateX(-100%);
         transition: transform 0.3s ease;
+        overflow-y: auto;
+        display: none;
     }
 
     .mobile-menu.active {
         transform: translateX(0);
     }
 
-    .mobile-menu-container {
+    /* Botão do hambúrguer */
+    .hamburger-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 10000; /* Acima do menu */
+    }
+
+    .hamburger-icon {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
     }
 
-    .mobile-menu-item {
-        position: relative;
-    }
-
-    .mobile-menu-link {
-        color: #444040;
-        text-decoration: none;
-        font-size: 1.1rem;
+    .hamburger-line {
         display: block;
-        padding: 10px 0;
+        width: 100%;
+        height: 2px;
+        background: #444040;
+        transition: all 0.3s ease;
+    }
+
+    /* Animação do hambúrguer para X */
+    .mobile-menu-open .hamburger-line:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .mobile-menu-open .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-open .hamburger-line:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Header do menu mobile */
+    .mobile-menu-header {
+        display: flex;
+        justify-content: flex-start;
+        padding: 15px 20px;
         border-bottom: 1px solid #eee;
     }
 
+    .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    }
+
+    .close-btn svg {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.2s ease;
+    }
+
+    .close-btn:hover svg {
+        transform: scale(1.1);
+    }
+   /* Estilos consistentes para todos os itens do menu mobile */
+   .mobile-menu-container {
+        padding: 0;
+    }
+
+    .mobile-menu-link {
+        display: block;
+        padding: 15px 20px;
+        color: #444040;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.2s ease;
+    }
+
+    .mobile-menu-link:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Estilo para itens com submenu */
+    .mobile-menu-item .mobile-menu-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 20px;
+    }
+
+    .mobile-menu-item .mobile-menu-link::after {
+        content: '+';
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-menu-item.active .mobile-menu-link::after {
+        content: '-';
+    }
+
+    /* Estilo para submenus */
     .mobile-submenu {
-        display: none;
-        padding-left: 15px;
-        margin-top: 5px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background-color: #f9f9f9;
+    }
+
+    .mobile-menu-item.active .mobile-submenu {
+        max-height: 500px;
     }
 
     .mobile-submenu a {
         display: block;
+        padding: 12px 30px;
         color: #444040;
         text-decoration: none;
-        padding: 8px 0;
         font-size: 0.95rem;
+        border-bottom: 1px solid #e0e0e0;
+        transition: background-color 0.2s ease;
     }
 
-    .mobile-menu-open .hamburger-icon {
-        background: transparent;
+    .mobile-submenu a:hover {
+        background-color: #f0f0f0;
     }
-
-    .mobile-menu-open .hamburger-icon:before {
-        transform: rotate(45deg);
-        top: 0;
-    }
-
-    .mobile-menu-open .hamburger-icon:after {
-        transform: rotate(-45deg);
-        top: 0;
-    }
-
     .mobile-social-icons {
         display: flex;
         gap: 15px;
         margin-top: 30px;
         justify-content: center;
+    }
+
+    /* Garantir que outros elementos fiquem abaixo */
+    .whatsapp-float, .floating-button {
+        z-index: 999 !important; /* Abaixo do menu */
     }
 
     /* Responsividade */
@@ -253,7 +299,11 @@
 <nav class="sticky-container" id="stickyMenu">
     <div class="menu-wrapper">
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
-            <span class="hamburger-icon"></span>
+            <span class="hamburger-icon">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </span>
         </button>
 
         <div class="menu-container">
@@ -277,8 +327,6 @@
             <a href="/#galeria" class="menu-link">Fotos</a>
             <span class="divider">|</span>
             <a href="/#redes-sociais" class="menu-link">Redes</a>
-            <span class="divider">|</span>
-            <a href="/#contato" class="menu-link">Contato</a>
             <span class="divider">|</span>
         </div>
       
@@ -318,6 +366,14 @@
 
 <!-- Menu mobile -->
 <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <button class="close-btn" id="closeBtn" aria-label="Fechar menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#444040">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </button>
+    </div>
+    
     <div class="mobile-menu-container">
         <a href="/" class="mobile-menu-link">Início</a>
         <a href="/#queme" class="mobile-menu-link">Quem é?</a>
@@ -334,7 +390,6 @@
         
         <a href="/#galeria" class="mobile-menu-link">Fotos</a>
         <a href="/#redes-sociais" class="mobile-menu-link">Redes</a>
-        <a href="/#contato" class="mobile-menu-link">Contato</a>
         
         <div class="mobile-social-icons">
             <a href="#" class="circle whatsapp" aria-label="WhatsApp">
@@ -369,66 +424,61 @@
         </div>
     </div>
 </div>
-
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-        // Sticky menu functionality
-        const menu = document.getElementById('stickyMenu');
-        const videoContainer = document.querySelector('.video-container');
-        
-        if (menu && videoContainer) {
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    menu.classList.toggle('sticky-active', !entry.isIntersecting);
-                },
-                { 
-                    threshold: 0,
-                    rootMargin: `-${menu.offsetHeight}px 0px 0px 0px`
-                }
-            );
-            observer.observe(videoContainer);
-        }
-
-        // Mobile menu functionality
+        // Controle do menu hamburguer
         const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('closeBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         
         if (hamburgerBtn && mobileMenu) {
             hamburgerBtn.addEventListener('click', () => {
-                document.body.classList.toggle('mobile-menu-open');
-                mobileMenu.classList.toggle('active');
+                document.body.classList.add('mobile-menu-open');
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
-
-            // Close menu when clicking on a link
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    document.body.classList.remove('mobile-menu-open');
-                    mobileMenu.classList.remove('active');
-                });
-            });
-
-            // Toggle submenus
-            const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
-            menuItems.forEach(item => {
-                const link = item.querySelector('.mobile-menu-link');
-                const submenu = item.querySelector('.mobile-submenu');
-                
-                if (link && submenu) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-                    });
-                }
+        }
+        
+        if (closeBtn && mobileMenu) {
+            closeBtn.addEventListener('click', () => {
+                document.body.classList.remove('mobile-menu-open');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
         }
 
-        // Cleanup
-        return () => {
-            if (observer) observer.disconnect();
-            if (hamburgerBtn) {
-                hamburgerBtn.removeEventListener('click');
+        // Controle dos submenus para todos os itens
+        document.querySelectorAll('.mobile-menu-item').forEach(item => {
+            const link = item.querySelector('.mobile-menu-link');
+            if (link) {
+                link.addEventListener('click', (e) => {
+                    // Fecha outros submenus antes de abrir um novo
+                    document.querySelectorAll('.mobile-menu-item').forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Alterna o submenu atual
+                    item.classList.toggle('active');
+                    
+                    // Previne o comportamento padrão apenas para itens com submenu
+                    if (item.querySelector('.mobile-submenu')) {
+                        e.preventDefault();
+                    }
+                });
             }
-        };
+        });
+
+        // Fecha o menu ao clicar em qualquer link (exceto nos que têm submenu)
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            if (!link.closest('.mobile-menu-item') || !link.closest('.mobile-menu-item').querySelector('.mobile-submenu')) {
+                link.addEventListener('click', () => {
+                    document.body.classList.remove('mobile-menu-open');
+                    document.getElementById('mobileMenu').classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
     });
 </script>
