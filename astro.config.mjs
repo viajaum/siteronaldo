@@ -6,7 +6,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@components': path.resolve('./src/components'),
-        '@data': path.resolve('./src/data') // ✅ Adicione esta linha
+        '@data': path.resolve('./src/data')
       }
     }
   }

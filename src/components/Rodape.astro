@@ -1,91 +1,102 @@
 <style>
-    .rodape {
-      background-color: #444040;
-      color: white;
-      padding: 2rem 1rem;
-      font-family: sans-serif;
-    }
+  .rodape {
+    background-color: #444040;
+    color: white;
+    padding: 2rem 1rem;
+    font-family: sans-serif;
+  }
+
+  .rodape-conteudo {
+    max-width: 830px;
+    margin: 0 auto;
+  }
+
+  .rodape-titulo {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .rodape-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .rodape-coluna ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .PT, .PT-RS, .PTassembleia, .PTcamara, .PTsenado, .prefeitura {
+    max-width: 100px;
+  }
+
+  .ze, .alexandre, .lula {
+    max-width: 120px;
+  }
+
+  /* --- Novas regras para links --- */
+  .rodape a {
+    color: inherit;          /* Cor igual ao texto do footer (branco) */
+    text-decoration: none;   /* Remove sublinhado */
+  }
   
-    .rodape-conteudo {
-      max-width: 830px;
-      margin: 0 auto;
-    }
-  
-    .rodape-titulo {
-      color: #fff;
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-  
+  .rodape a:hover {
+    opacity: 0.8;            /* Efeito sutil ao passar o mouse */
+  }
+  /* ----------------------------- */
+
+  @media (max-width: 768px) {
     .rodape-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-  
-    .rodape-coluna ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-    }
-  
-    .PT, .PT-RS, .PTassembleia, .PTcamara, .PTsenado, .prefeitura {
-      max-width: 180px;
-    }
-  
-    .ze, .alexandre, .lula {
-      max-width: 150px;
-    }
-  
-    @media (max-width: 768px) {
-      .rodape-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      
-      .rodape-coluna {
-        padding-bottom: 1rem;
-      }
-      
-      .rodape-titulo {
-        margin-bottom: 1rem;
-      }
-    }
-</style>
-  
-<footer class="rodape">
-  <div class="rodape-conteudo">
-    <h3 class="rodape-titulo">Links</h3>
     
-    <div class="rodape-container">
-      <div class="rodape-coluna">
-        <ul>
-          <li><img src="/imagens/pt.org.br.png" alt="PT" class="PT" /></li>
-          <li><img src="/imagens/ze.png" alt="Zé Nunes" class="ze" /></li>
-          <li><img src="/imagens/alexandre.png" alt="Alexandre" class="alexandre" /></li>
-        </ul>
-      </div>
-      
-      <div class="rodape-coluna">
-        <ul>
-          <li><img src="/imagens/ptrs.png" alt="PT - RS" class="PT-RS"></li>
-          <li><img src="/imagens/ptassembleia.png" alt="PT na Assembléia" class="PTassembleia"></li>
-          <li><img src="/imagens/ptcamara.png" alt="PT na Câmara" class="PTcamara"></li>
-        </ul>
-      </div>
-      
-      <div class="rodape-coluna">
-        <ul>
-          <li><img src="/imagens/ptsenado.png" alt="PT no Senado" class="PTsenado"></li>
-          <li><img src="/imagens/lula.png" alt="Lula" class="lula"></li>
-          <li><img src="/imagens/prefeitura.png" alt="Prefeitura" class="prefeitura"></li>
-        </ul>
-      </div>
+    .rodape-coluna {
+      padding-bottom: 1rem;
+    }
+    
+    .rodape-titulo {
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+
+<footer class="rodape">
+<div class="rodape-conteudo">
+  <h3 class="rodape-titulo">Links</h3>
+  
+  <div class="rodape-container">
+    <div class="rodape-coluna">
+      <ul>
+        <li><a href="https://pt.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/pt.png" alt="PT" class="PT" /></a></li>
+        <li><a href="https://www.instagram.com/depzenunes/" target="_blank" rel="noopener noreferrer"><img src="/images/ze.png" alt="Zé Nunes" class="ze" /></a></li>
+        <li><a href="https://www.instagram.com/alexandre.lindenmeyer/" target="_blank" rel="noopener noreferrer"><img src="/images/alexandre.png" alt="Alexandre" class="alexandre" /></a></li>
+      </ul>
+    </div>
+    
+    <div class="rodape-coluna">
+      <ul>
+        <li><a href="https://pt-rs.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/ptrs.png" alt="PT - RS" class="PT-RS"></a></li>
+        <li><a href="https://ptassembleiars.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptassembleia.png" alt="PT na Assembléia" class="PTassembleia"></a></li>
+        <li><a href="https://ptnacamara.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptcamara.png" alt="PT na Câmara" class="PTcamara"></a></li>
+      </ul>
+    </div>
+    
+    <div class="rodape-coluna">
+      <ul>
+        <li><a href="https://ptnosenado.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptsenado.png" alt="PT no Senado" class="PTsenado"></a></li>
+        <li><a href="https://www.instagram.com/lulaoficial/" target="_blank" rel="noopener noreferrer"><img src="/images/lula.png" alt="Lula" class="lula"></a></li>
+        <li><a href="https://www.pelotas.com.br/" target="_blank" rel="noopener noreferrer"><img src="/images/prefeitura.png" alt="Prefeitura" class="prefeitura"></a></li>
+      </ul>
     </div>
   </div>
+</div>
 </footer>

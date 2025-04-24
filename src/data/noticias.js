@@ -17,7 +17,7 @@ export const noticias = [
 
 <p>Além disso, a prefeitura também está promovendo uma série de workshops e palestras com artistas e especialistas, com o objetivo de incentivar a participação da comunidade nas atividades culturais e ampliar o acesso à educação artística. A expectativa é que esse projeto se torne um marco na história de Pelotas, tornando a cidade um importante polo cultural no sul do Brasil.</p>
     `,
-    imagem: "/images/noticia-1.jpg",
+    imagem: "/images/noticias/noticia-1.jpg",
     categoria: "Notícias" // Nova propriedade
   },
   {
@@ -35,7 +35,7 @@ export const noticias = [
       </blockquote>
       <p>A exposição estará aberta até o final de janeiro e contará com workshops e atividades interativas para os visitantes.</p>
     `,
-    imagem: "/images/noticia-2.jpg",
+    imagem: "/images/noticias/noticia-2.jpg",
     categoria: "Agendas" // Nova propriedade
   },
   {
@@ -53,7 +53,7 @@ export const noticias = [
       </blockquote>
       <p>O festival continuará por mais uma semana com novos cardápios e apresentações culturais. A expectativa é de que o evento se torne uma tradição anual na cidade.</p>
     `,
-    imagem: "/images/noticia-3.jpg",
+    imagem: "/images/noticias/noticia-3.jpg",
     categoria: "Agendas" // Nova propriedade
   },
   {
@@ -71,7 +71,7 @@ export const noticias = [
       </blockquote>
       <p>As atividades vão até o final da semana e incluem shows, workshops e competições esportivas.</p>
     `,
-    imagem: "/images/noticia-4.jpg",
+    imagem: "/images/noticias/noticia-2.jpg",
     categoria: "Agendas" // Nova propriedade
   },
   {
@@ -89,7 +89,7 @@ export const noticias = [
       </blockquote>
       <p>A previsão é que as obras sejam concluídas até o final de 2025, com uma nova inauguração do mercado totalmente reformado.</p>
     `,
-    imagem: "/images/noticia-5.jpg",
+    imagem: "/images/noticias/noticia-3.jpg",
     categoria: "Notícias" // Nova propriedade
   },
   {
@@ -107,7 +107,7 @@ export const noticias = [
       </blockquote>
       <p>O programa começará com a distribuição de lixeiras de reciclagem nas principais avenidas e bairros da cidade.</p>
     `,
-    imagem: "/images/noticia-6.jpg",
+    imagem: "/images/noticias/noticia-1.jpg",
     categoria: "Notícias" // Nova propriedade
   },
   // Exemplo de Artigo
@@ -131,7 +131,7 @@ export const noticias = [
       <h3>Conclusão</h3>
       <p>A cultura não deve ser vista como um apêndice no desenvolvimento das cidades, mas como um eixo estruturante. Investimentos bem planejados em cultura podem gerar retornos significativos em termos de qualidade de vida, turismo e desenvolvimento econômico.</p>
     `,
-    imagem: "/images/artigo-1.jpg",
+    imagem: "/images/noticias/noticia-3.jpg",
     categoria: "Artigos" // Nova propriedade
   },
   // Exemplo de Produção Legislativa
@@ -155,7 +155,7 @@ export const noticias = [
       
       <p>A expectativa é que a nova legislação entre em vigor no início do próximo ano, após a regulamentação pelo Executivo Municipal.</p>
     `,
-    imagem: "/images/noticia-6.jpg",
+    imagem: "/images/noticias/noticia-2.jpg",
     categoria: "Produção Legislativa" // Nova propriedade
   }
 ];

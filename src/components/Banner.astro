@@ -3,37 +3,113 @@
 ---
 
 <style>
-    .banner {
-      position: relative;
+  .banner-container {
+    position: relative;
+    width: 100%;
+    background-color: #fc7804;
+    overflow: hidden;
+  }
+
+  .imagem-fundo {
+    width: 100%;
+    height: auto;
+    display: block;
+    min-height: 200px;
+  }
+
+  /* Desktop Styles (default) */
+  .logo-sobreposto {
+    position: absolute;
+    left: 230px;
+    bottom: 0;
+    z-index: 3; /* Maior z-index para desktop */
+    width: 550px;
+    height: auto;
+    transform: translateY(10%);
+  }
+
+  .foto-sobreposta {
+    position: absolute;
+    right: 50px;
+    bottom: 0;
+    z-index: 2;
+    width: 300px;
+    height: auto;
+    transform: translateY(15%);
+  }
+
+  .conteudo-banner {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .banner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 60px; /* Espaço para a logo */
+    }
+
+    .imagem-fundo {
+      order: 1;
       width: 100%;
-      overflow: hidden;
     }
-  
-    .fundo {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  
-    .conteudo {
+
+    .logo-sobreposto {
       position: relative;
-      max-width: 830px;
-      margin: 0 auto;
-      height: 100%;
+      order: 3;
+      width: 80%;
+      max-width: 280px;
+      left: auto;
+      right: auto;
+      transform: translateY(40%);
+      margin-top: -15%; /* Traz a logo para cima */
+      z-index: 3;
     }
-  
-    .sobreposta {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      z-index: 1;
+
+    .foto-sobreposta {
+      order: 2;
+      position: relative;
+      width: 60%;
+      max-width: 220px;
+      margin: -15% auto 0;
+      left: auto;
+      right: auto;
+      transform: none;
+      z-index: 2;
     }
-  </style>
-  
-  <section class="banner">
-    <img src="/images/fundo.png" alt="Fundo" class="fundo" />
-  
-    <div class="conteudo">
-      <!-- Imagem sobreposta dentro do conteúdo centralizado -->
-      <img src="/images/logo.png" alt="Logo sobreposto" class="sobreposta" />
-  
+
+    .conteudo-banner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-sobreposto {
+      max-width: 260px;
+      transform: translateY(30%);
+    }
+
+    .foto-sobreposta {
+      max-width: 180px;
+      margin-top: -10%;
+    }
+
+    .banner-container {
+      padding-bottom: 50px;
+    }
+  }
+</style>
+
+<div class="banner-container">
+  <div class="conteudo-banner">
+    <img src="/images/fundo.png" alt="Fundo do banner" class="imagem-fundo" />
+    <img src="/images/fotobanner.png" alt="Foto Ronaldo Quadrado" class="foto-sobreposta" />
+    <img src="/images/logo.png" alt="Logo Ronaldo Quadrado" class="logo-sobreposto" />
+  </div>
+</div>

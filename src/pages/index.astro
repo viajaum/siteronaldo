@@ -52,32 +52,90 @@ import Contato from '../components/sections/Contato.astro';
             }
             
             /* ===== BOTÃO WHATSAPP ===== */
-            .whatsapp-btn {
-                position: fixed;
-                left: 50%;
-                bottom: 20px;
-                transform: translateX(-50%);
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                background-color: #25D366;
-                color: white;
-                padding: 12px 25px;
-                border-radius: 50px;
-                text-decoration: none;
-                font-weight: bold;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                transition: all 0.5s ease;
-                opacity: 1;
-                visibility: visible;
-            }
+.whatsapp-btn {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%); /* Centraliza horizontalmente */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    /* Adicione essas propriedades para corrigir o hover */
+    transform-origin: center;
+    will-change: transform;
+}
+
+.whatsapp-btn:hover {
+    transform: translateX(-50%) scale(1.05); /* Mantém o centralizado E escala */
+    background-color: #128C7E;
+}
             
             /* Esconde o botão flutuante quando estiver na seção de contato */
             #contato .whatsapp-btn {
                 display: none;
             }
-        </style>
+            menu {
+    position: relative;
+    z-index: 5;
+    margin-top: -40px; /* Sobreposição mais acentuada */
+    padding-top: 40px; /* Compensação */
+    background-color: #fc7804;
+  }
+
+  /* Correção para conteúdo centralizado */
+  .conteudo-centralizado {
+    position: relative;
+    z-index: 2;
+  }
+  
+  footer {
+    position: relative;  /* Importante para o IntersectionObserver */
+    z-index: 1;
+}
+
+    /* ===== ESTILOS RESPONSIVOS ===== */
+    @media (max-width: 768px) {
+        menu {
+      margin-top: -30px;
+      padding-top: 30px;
+    }
+        .video-container {
+            margin-bottom: -80px; /* Reduz o espaço negativo */
+        }
+        
+        .whatsapp-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .video-container {
+            margin-bottom: -50px; /* Reduz ainda mais para telas muito pequenas */
+        }
+        
+        .whatsapp-btn {
+            padding: 8px 15px;
+            font-size: 0.8rem;
+        }
+
+        
+        .whatsapp-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    
+    </style>
     </head>
     
 <body>
@@ -112,47 +170,63 @@ import Contato from '../components/sections/Contato.astro';
     <script is:inline>
         document.addEventListener('DOMContentLoaded', function() {
             const whatsappBtn = document.querySelector('.whatsapp-btn');
-            const whatsappBtnLg = document.querySelector('.whatsapp-btn-lg');
             const contatoSection = document.getElementById('contato');
-            const transitionContainer = document.querySelector('.whatsapp-transition-container');
+            const rodapeSection = document.querySelector('footer');
             
-            // Observar quando o botão chega perto da seção de contato
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Quando o container de transição está visível
-                        whatsappBtn.style.opacity = '0';
-                        whatsappBtn.style.visibility = 'hidden';
+            if (whatsappBtn && contatoSection && rodapeSection) {
+                let lastScrollPosition = window.scrollY;
+                let isHidingForFooter = false;
+                
+                // Observador para o Contato
+                const contatoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !isHidingForFooter) {
+                            whatsappBtn.style.opacity = '0';
+                            whatsappBtn.style.visibility = 'hidden';
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                // Observador para o Rodapé
+                const rodapeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            isHidingForFooter = true;
+                            whatsappBtn.style.opacity = '0';
+                            whatsappBtn.style.visibility = 'hidden';
+                        } else {
+                            isHidingForFooter = false;
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                // Scroll listener para reaparecer ao subir
+                window.addEventListener('scroll', () => {
+                    const currentScroll = window.scrollY;
+                    
+                    // Se estiver subindo e passou do Contato
+                    if (currentScroll < lastScrollPosition && 
+                        !isElementInViewport(contatoSection) &&
+                        !isHidingForFooter) {
                         
-                        // Mostrar e animar o botão grande
-                        whatsappBtnLg.classList.add('ativo');
-                        
-                        // Posicionar o botão grande no lugar do flutuante
-                        const btnRect = whatsappBtn.getBoundingClientRect();
-                        whatsappBtnLg.style.position = 'fixed';
-                        whatsappBtnLg.style.left = `${btnRect.left}px`;
-                        whatsappBtnLg.style.bottom = `${btnRect.bottom}px`;
-                        whatsappBtnLg.style.transform = `translateX(-50%)`;
-                        
-                        // Depois de um pequeno delay, animar para a posição final
-                        setTimeout(() => {
-                            whatsappBtnLg.style.position = 'relative';
-                            whatsappBtnLg.style.left = 'auto';
-                            whatsappBtnLg.style.bottom = 'auto';
-                            whatsappBtnLg.style.transform = 'none';
-                        }, 100);
-                    } else {
-                        // Quando sai da área de transição
                         whatsappBtn.style.opacity = '1';
                         whatsappBtn.style.visibility = 'visible';
-                        whatsappBtnLg.classList.remove('ativo');
                     }
+                    
+                    lastScrollPosition = currentScroll;
                 });
-            }, { threshold: 0.1 });
-            
-            // Observar o container de transição
-            if (transitionContainer) {
-                observer.observe(transitionContainer);
+                
+                contatoObserver.observe(contatoSection);
+                rodapeObserver.observe(rodapeSection);
+                
+                // Função auxiliar para verificar visibilidade
+                function isElementInViewport(el) {
+                    const rect = el.getBoundingClientRect();
+                    return (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.bottom >= 0
+                    );
+                }
             }
         });
     </script>
