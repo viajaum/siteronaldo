@@ -19,7 +19,6 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artigos</title>
   <style>
-    /* Estilos mantidos */
     body {
       margin: 0;
       padding: 0;
@@ -47,6 +46,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
       text-decoration: none;
       color: inherit;
       display: flex;
+      flex-direction: row;
       gap: 20px;
     }
 
@@ -80,6 +80,34 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
     .leiamais:hover {
       color: #d42f2e;
     }
+
+    /* Media queries para responsividade */
+    @media screen and (max-width: 768px) {
+      .artigo-link {
+        flex-direction: column;
+      }
+
+      .imagem-container {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .main-container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -92,7 +120,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
     <div class="artigos-container">
       {artigos.sort((a, b) => new Date(b.data) - new Date(a.data)).map((artigo) => (
         <article key={artigo.id}>
-          <a href={`/noticias/${artigo.id}`} class="artigo-link">  <!-- Alterado para /noticias/ -->
+          <a href={`/noticias/${artigo.id}`} class="artigo-link">
             <div class="imagem-container">
               <img src={artigo.imagem} alt={`Imagem do artigo ${artigo.titulo}`} class="imagemartigo" />
             </div>
@@ -102,7 +130,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
               <p>{artigo.resumo}</p>
             </div>
           </a>
-          <a class="leiamais" href={`/noticias/${artigo.id}`}>Ler artigo completo</a>  <!-- Alterado para /noticias/ -->
+          <a class="leiamais" href={`/noticias/${artigo.id}`}>Ler artigo completo</a>
         </article>
       ))}
     </div>

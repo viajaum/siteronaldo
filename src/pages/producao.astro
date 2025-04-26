@@ -19,7 +19,6 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produ√ß√
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produ√ß√£o Legislativa</title>
   <style>
-    /* Estilos mantidos */
     body {
       margin: 0;
       padding: 0;
@@ -47,6 +46,7 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produ√ß√
       text-decoration: none;
       color: inherit;
       display: flex;
+      flex-direction: row;
       gap: 20px;
     }
 
@@ -86,6 +86,38 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produ√ß√
       color: #666;
       margin-top: 5px;
     }
+
+    /* Media queries para responsividade */
+    @media screen and (max-width: 768px) {
+      .producao-link {
+        flex-direction: column;
+      }
+
+      .imagem-container {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .main-container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+      
+      .detalhes-legislativos {
+        font-size: 0.85em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -98,7 +130,7 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produ√ß√
     <div class="producao-container">
       {producaoLegislativa.sort((a, b) => new Date(b.data) - new Date(a.data)).map((item) => (
         <article key={item.id}>
-          <a href={`/noticias/${item.id}`} class="producao-link">  <!-- Alterado para /noticias/ -->
+          <a href={`/noticias/${item.id}`} class="producao-link">
             <div class="imagem-container">
               <img src={item.imagem} alt={`Imagem da produ√ß√£o legislativa ${item.titulo}`} class="imagemproducao" />
             </div>
@@ -109,7 +141,7 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produ√ß√
               <p>{item.resumo}</p>
             </div>
           </a>
-          <a class="leiamais" href={`/noticias/${item.id}`}>Ver detalhes</a>  <!-- Alterado para /noticias/ -->
+          <a class="leiamais" href={`/noticias/${item.id}`}>Ver detalhes</a>
         </article>
       ))}
     </div>

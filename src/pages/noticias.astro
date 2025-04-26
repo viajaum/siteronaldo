@@ -46,6 +46,7 @@ const noticiasFiltradas = noticias.filter(noticia => noticia.categoria === "Not√
       text-decoration: none;
       color: inherit;
       display: flex;
+      flex-direction: row;
       gap: 20px;
     }
 
@@ -78,6 +79,34 @@ const noticiasFiltradas = noticias.filter(noticia => noticia.categoria === "Not√
 
     .leiamais:hover {
       color: #d42f2e;
+    }
+
+    /* Media queries para responsividade */
+    @media screen and (max-width: 768px) {
+      .noticia-link {
+        flex-direction: column;
+      }
+
+      .imagem-container {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .main-container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
