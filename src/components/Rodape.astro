@@ -26,12 +26,18 @@
   .rodape-container ul {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;          /* permite quebra de linha */
-    justify-content: center;  /* centraliza as imagens */
-    gap: 1.5rem;              /* espaço entre imagens */
-    margin: 0 auto;
+    flex-wrap: wrap;           /* permite quebra de linha */
+    justify-content: center;   /* centraliza horizontalmente */
+    align-items: center;       /* centraliza verticalmente */
+    gap: 1.5rem;               /* espaço entre imagens */
     padding: 0;
-    max-width: 100%;          /* não estoura */
+    margin: 0 auto;
+  }
+
+  .rodape-container ul li {
+    display: flex;             /* garante alinhamento das imagens dentro do li */
+    justify-content: center;
+    align-items: center;
   }
 
   /* --- Estilo das imagens --- */
@@ -73,12 +79,12 @@
     <div class="rodape-container">
       <ul>
         <li><a href="https://pt.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/pt.png" alt="PT" class="PT"></a></li>
+        <li><a href="https://www.instagram.com/lulaoficial/" target="_blank" rel="noopener noreferrer"><img src="/images/lula.png" alt="Lula" class="lula"></a></li>
         <li><a href="https://www.instagram.com/depzenunes/" target="_blank" rel="noopener noreferrer"><img src="/images/ze.png" alt="Zé Nunes" class="ze"></a></li>
         <li><a href="https://www.instagram.com/alexandre.lindenmeyer/" target="_blank" rel="noopener noreferrer"><img src="/images/alexandre.png" alt="Alexandre" class="alexandre"></a></li>
         <li><a href="https://pt-rs.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/ptrs.png" alt="PT - RS" class="PT-RS"></a></li>
         <li><a href="https://ptassembleiars.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptassembleia.png" alt="PT na Assembléia" class="PTassembleia"></a></li>
         <li><a href="https://ptnacamara.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptcamara.png" alt="PT na Câmara" class="PTcamara"></a></li>
-        <li><a href="https://www.instagram.com/lulaoficial/" target="_blank" rel="noopener noreferrer"><img src="/images/lula.png" alt="Lula" class="lula"></a></li>
         <li><a href="https://ptnosenado.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptsenado.png" alt="PT no Senado" class="PTsenado"></a></li>
         <li><a href="https://www.pelotas.com.br/" target="_blank" rel="noopener noreferrer"><img src="/images/prefeitura.png" alt="Prefeitura" class="prefeitura"></a></li>
       </ul>

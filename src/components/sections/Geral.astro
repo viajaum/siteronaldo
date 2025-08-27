@@ -3,10 +3,8 @@
 import { noticias } from '../../data/noticias';
 
 const formatarData = (data) => {
-  // Garante que aceita tanto ISO quanto dd/mm/yyyy
   const partes = data.split('/');
   if (partes.length === 3) {
-    // Se estiver no formato dd/mm/yyyy → inverte pra yyyy-mm-dd
     const [dia, mes, ano] = partes;
     return new Date(`${ano}-${mes}-${dia}`).toLocaleDateString('pt-BR');
   }
@@ -34,7 +32,9 @@ const ultimasNoticias = noticias
         {Object.entries(categoriasUrls).map(([nome, url], i) => (
           <>
             <a href={url}>{nome}</a>
-            {i < Object.entries(categoriasUrls).length - 1 ? ' | ' : ''}
+            {i < Object.entries(categoriasUrls).length - 1 && (
+              <span class="separador"> | </span>
+            )}
           </>
         ))}
       </div>
@@ -79,7 +79,7 @@ const ultimasNoticias = noticias
 #geral {
   background-color: #ffffff;
   padding: 40px 0;
-  width: 100%; /* simplificado */
+  width: 100%;
 }
 
 .conteudo-centralizado {
@@ -100,6 +100,7 @@ const ultimasNoticias = noticias
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .links-rapidos a {
@@ -111,6 +112,11 @@ const ultimasNoticias = noticias
 
 .links-rapidos a:hover {
   color: #d42f2e;
+}
+
+/* Separador entre links */
+.links-rapidos .separador {
+  display: inline; /* visível no desktop */
 }
 
 /* Estilos da seção de notícias */
@@ -186,19 +192,13 @@ const ultimasNoticias = noticias
   margin: 0;
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
-  .noticias-lista {
-    grid-template-columns: 1fr;
-  }
-
-  .noticia-categoria {
-    font-size: 0.6rem;
-    padding: 2px 6px;
-  }
-
+  /* Links rápidos */
   .links-rapidos {
     flex-direction: column;
     gap: 5px;
+    align-items: flex-start; /* garante alinhamento à esquerda */
   }
 
   .links-rapidos a {
@@ -206,8 +206,22 @@ const ultimasNoticias = noticias
     margin-bottom: 5px;
   }
 
-  .links-rapidos a:after {
-    content: none;
+  .links-rapidos .separador {
+    display: none;
+  }
+
+  /* Notícias empilhadas */
+  .noticias-lista {
+    display: block; /* empilha artigos verticalmente */
+  }
+
+  .noticia-item {
+    margin-bottom: 20px; /* espaço entre cada notícia */
+  }
+
+  .noticia-categoria {
+    font-size: 0.6rem;
+    padding: 2px 6px;
   }
 }
 </style>
