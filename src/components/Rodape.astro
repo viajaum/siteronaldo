@@ -18,85 +18,66 @@
     text-align: center;
   }
 
-  .rodape-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-  }
-
-  .rodape-coluna ul {
+  /* Container das imagens */
+  .rodape-container ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
+    flex-wrap: wrap;          /* permite quebra de linha */
+    justify-content: center;  /* centraliza as imagens */
+    gap: 1.5rem;              /* espaço entre imagens */
+    margin: 0 auto;
+    padding: 0;
+    max-width: 100%;          /* não estoura */
   }
 
-  .PT, .PT-RS, .PTassembleia, .PTcamara, .PTsenado, .prefeitura {
-    max-width: 100px;
+  /* --- Estilo das imagens --- */
+  .rodape img {
+    max-width: 100px; /* limite padrão */
+    height: auto;
+    display: block;
   }
 
   .ze, .alexandre, .lula {
-    max-width: 120px;
+    max-width: 120px; /* algumas podem ser maiores */
   }
 
-  /* --- Novas regras para links --- */
+  /* --- Regras para links --- */
   .rodape a {
-    color: inherit;          /* Cor igual ao texto do footer (branco) */
-    text-decoration: none;   /* Remove sublinhado */
+    color: inherit;
+    text-decoration: none;
   }
   
   .rodape a:hover {
-    opacity: 0.8;            /* Efeito sutil ao passar o mouse */
+    opacity: 0.8;
   }
-  /* ----------------------------- */
 
+  /* Responsividade */
   @media (max-width: 768px) {
-    .rodape-container {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+    .rodape img {
+      max-width: 70px;
     }
-    
-    .rodape-coluna {
-      padding-bottom: 1rem;
-    }
-    
-    .rodape-titulo {
-      margin-bottom: 1rem;
+    .ze, .alexandre, .lula {
+      max-width: 90px;
     }
   }
 </style>
 
 <footer class="rodape">
-<div class="rodape-conteudo">
-  <h3 class="rodape-titulo">Links</h3>
-  
-  <div class="rodape-container">
-    <div class="rodape-coluna">
-      <ul>
-        <li><a href="https://pt.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/pt.png" alt="PT" class="PT" /></a></li>
-        <li><a href="https://www.instagram.com/depzenunes/" target="_blank" rel="noopener noreferrer"><img src="/images/ze.png" alt="Zé Nunes" class="ze" /></a></li>
-        <li><a href="https://www.instagram.com/alexandre.lindenmeyer/" target="_blank" rel="noopener noreferrer"><img src="/images/alexandre.png" alt="Alexandre" class="alexandre" /></a></li>
-      </ul>
-    </div>
+  <div class="rodape-conteudo">
+    <h3 class="rodape-titulo">Links</h3>
     
-    <div class="rodape-coluna">
+    <div class="rodape-container">
       <ul>
+        <li><a href="https://pt.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/pt.png" alt="PT" class="PT"></a></li>
+        <li><a href="https://www.instagram.com/depzenunes/" target="_blank" rel="noopener noreferrer"><img src="/images/ze.png" alt="Zé Nunes" class="ze"></a></li>
+        <li><a href="https://www.instagram.com/alexandre.lindenmeyer/" target="_blank" rel="noopener noreferrer"><img src="/images/alexandre.png" alt="Alexandre" class="alexandre"></a></li>
         <li><a href="https://pt-rs.org.br" target="_blank" rel="noopener noreferrer"><img src="/images/ptrs.png" alt="PT - RS" class="PT-RS"></a></li>
         <li><a href="https://ptassembleiars.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptassembleia.png" alt="PT na Assembléia" class="PTassembleia"></a></li>
         <li><a href="https://ptnacamara.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptcamara.png" alt="PT na Câmara" class="PTcamara"></a></li>
-      </ul>
-    </div>
-    
-    <div class="rodape-coluna">
-      <ul>
         <li><a href="https://www.instagram.com/lulaoficial/" target="_blank" rel="noopener noreferrer"><img src="/images/lula.png" alt="Lula" class="lula"></a></li>
         <li><a href="https://ptnosenado.org.br/" target="_blank" rel="noopener noreferrer"><img src="/images/ptsenado.png" alt="PT no Senado" class="PTsenado"></a></li>
         <li><a href="https://www.pelotas.com.br/" target="_blank" rel="noopener noreferrer"><img src="/images/prefeitura.png" alt="Prefeitura" class="prefeitura"></a></li>
       </ul>
     </div>
   </div>
-</div>
 </footer>
