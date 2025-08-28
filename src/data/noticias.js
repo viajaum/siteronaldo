@@ -48,6 +48,6 @@ export const noticias = [
       </p>
     `,
     imagem: "/images/noticias/noticia-2.jpg",
-    categoria: "Notícias"
+    categoria: "Produção Legislativa"
   }
 ];
