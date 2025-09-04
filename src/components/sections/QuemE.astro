@@ -2,39 +2,28 @@
 // src/components/sections/QuemE.astro
 ---
 
+<!-- Importando Inter do Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
 <div id="queme" class="quem-e-container">
   <div class="quem-e-wrapper">
     <div class="quem-e-retangulo">
       <img src="/images/queme.jpg" alt="Ronaldo Quadrado" class="quem-e-imagem" loading="lazy">
       <div class="quem-e-texto">
         <h2>Quem é?</h2>
-        <p>
-          Filho de Lia e Leovaldo, iniciei minha militância política no movimento estudantil secundarista da Escola Joaquim Duval. Mais tarde, na Universidade Federal de Pelotas (UFPel), atuei no Centro Acadêmico do curso de História e cheguei à coordenação geral do Diretório Central dos Estudantes (DCE).
-        </p>
+        <p>Filho de Lia e Leovaldo, iniciei minha militância política no movimento estudantil secundarista da Escola Joaquim Duval. Mais tarde, na Universidade Federal de Pelotas (UFPel), atuei no Centro Acadêmico do curso de História e cheguei à coordenação geral do Diretório Central dos Estudantes (DCE).</p>
 
-        <p>
-          Minha caminhada também passa pelo trabalho comunitário: fui Agente Comunitário de Saúde no Monte Bonito e, por duas vezes, eleito Conselheiro Tutelar. No Partido dos Trabalhadores, exerci diferentes funções de responsabilidade — Secretário de Juventude, Secretário-Geral, Vice-presidente e, atualmente, Presidente do Diretório Municipal.
-        </p>
+        <p>Minha caminhada também passa pelo trabalho comunitário: fui Agente Comunitário de Saúde no Monte Bonito e, por duas vezes, eleito Conselheiro Tutelar. No Partido dos Trabalhadores, exerci diferentes funções de responsabilidade — Secretário de Juventude, Secretário-Geral, Vice-presidente e, atualmente, Presidente do Diretório Municipal.</p>
 
-        <p>
-          Tive a oportunidade de contribuir como assessor do ex-deputado federal Fernando Marroni e do deputado estadual Edegar Pretto, além de atuar como estagiário na TV Câmara, experiências que ampliaram minha formação política e meu compromisso com a vida pública.
-        </p>
+        <p>Tive a oportunidade de contribuir como assessor do ex-deputado federal Fernando Marroni e do deputado estadual Edegar Pretto, além de atuar como estagiário na TV Câmara, experiências que ampliaram minha formação política e meu compromisso com a vida pública.</p>
 
-        <p>
-          Minha trajetória nunca foi individual. Sempre acreditei na força da mobilização popular, desde os primeiros passos na militância estudantil. Esse espírito coletivo segue sendo a base do nosso trabalho, reunindo muitas pessoas comprometidas em construir um mandato participativo e democrático.
-        </p>
+        <p>Minha trajetória nunca foi individual. Sempre acreditei na força da mobilização popular, desde os primeiros passos na militância estudantil. Esse espírito coletivo segue sendo a base do nosso trabalho, reunindo muitas pessoas comprometidas em construir um mandato participativo e democrático.</p>
 
-        <p>
-          Chegamos à Câmara de Vereadores porque acreditamos em um projeto nascido das ruas, fortalecido na luta de quem defende uma cidade mais justa e igualitária: movimentos sociais, sindicatos, juventude, trabalhadores e trabalhadoras do campo e da cidade que fazem Pelotas acontecer.
-        </p>
+        <p>Chegamos à Câmara de Vereadores porque acreditamos em um projeto nascido das ruas, fortalecido na luta de quem defende uma cidade mais justa e igualitária: movimentos sociais, sindicatos, juventude, trabalhadores e trabalhadoras do campo e da cidade que fazem Pelotas acontecer.</p>
 
-        <p>
-          O Partido dos Trabalhadores seguirá sendo resistência — enfrentando o fascismo, defendendo os serviços públicos e garantindo que nenhuma pauta popular seja silenciada. Seguimos firmes, com coragem e coração vermelho, porque a história nos ensinou: só a luta muda a vida.
-        </p>
+        <p>O Partido dos Trabalhadores seguirá sendo resistência — enfrentando o fascismo, defendendo os serviços públicos e garantindo que nenhuma pauta popular seja silenciada. Seguimos firmes, com coragem e coração vermelho, porque a história nos ensinou: só a luta muda a vida.</p>
 
-        <p>
-          Por isso, não sou eu. Somos nós. E continuará sendo assim.
-        </p>
+        <p>Por isso, não sou eu. Somos nós. E continuará sendo assim.</p>
       </div>
     </div>
   </div>
@@ -46,68 +35,61 @@
   width: 100%;
   margin: 40px auto;
   padding: 0 20px;
-  position: relative; /* necessário para o z-index funcionar */
-  z-index: 10; /* maior que o do vídeo */
-}
-
-.quem-e-retangulo {
-  background-color: #d42f2e; /* Vermelho PT */
-  border-radius: 8px;
-  padding: 40px;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
-  position: relative; /* também pode ajudar */
+  position: relative;
   z-index: 10;
 }
 
+.quem-e-retangulo {
+  background-color: #d42f2e;
+  border-radius: 8px;
+  padding: 40px;
+  position: relative;
+  z-index: 10;
+  color: white;
+  font-family: 'Inter', sans-serif; /* fonte atualizada */
+}
 
+/* clearfix para o float da imagem */
+.quem-e-retangulo::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* imagem flutuando à esquerda */
 .quem-e-imagem {
+  float: left;
+  margin: 0 20px 20px 0;
   width: 150px;
   height: 150px;
   border-radius: 8px;
   border: 4px solid white;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   object-fit: cover;
-  flex-shrink: 0;
-}
-
-.quem-e-texto {
-  color: white;
-  flex: 1;
-  min-width: 250px;
 }
 
 .quem-e-texto h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .quem-e-texto p {
-  font-size: 1.5rem;
-  line-height: 1.5;
-  margin-top: 0.8rem; /* espaçamento entre parágrafos */
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-top: 0.8rem;
 }
 
 /* aplica recuo só a partir do segundo parágrafo */
 .quem-e-texto p:not(:first-of-type) {
-  text-indent: 2em; /* recuo no início */
+  text-indent: 2em;
 }
 
-
 @media (max-width: 768px) {
-  .quem-e-retangulo {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .quem-e-texto {
-    text-align: left; /* se preferir manter alinhado à esquerda no mobile, pode trocar */
-  }
-
   .quem-e-imagem {
+    float: none;
+    display: block;
+    margin: 0 auto 20px auto;
     width: 120px;
     height: 120px;
   }
