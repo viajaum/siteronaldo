@@ -41,14 +41,19 @@
   }
 
   /* --- Estilo das imagens --- */
+  /* regra geral */
   .rodape img {
-    max-width: 100px; /* limite padrão */
+    max-width: 95px;
     height: auto;
     display: block;
   }
 
-  .ze, .alexandre, .lula {
-    max-width: 120px; /* algumas podem ser maiores */
+  /* Alexandre com prioridade maior */
+
+  .rodape img.alexandre {
+    width: 140px;
+    max-width: 140px; 
+    height: auto;
   }
 
   /* --- Regras para links --- */
@@ -61,15 +66,17 @@
     opacity: 0.8;
   }
 
-  /* Responsividade */
   @media (max-width: 768px) {
     .rodape img {
       max-width: 70px;
     }
-    .ze, .alexandre, .lula {
-      max-width: 90px;
+    .rodape img.alexandre {
+      width: 100px;
+      max-width: 100px;
     }
   }
+
+
 </style>
 
 <footer id="rodape" class="rodape">
