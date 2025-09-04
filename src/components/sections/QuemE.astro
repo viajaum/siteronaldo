@@ -46,7 +46,7 @@
   position: relative;
   z-index: 10;
   color: white;
-  font-family: 'Inter', sans-serif; /* fonte atualizada */
+  font-family: 'Inter', sans-serif; 
 }
 
 /* clearfix para o float da imagem */
@@ -68,6 +68,12 @@
   object-fit: cover;
 }
 
+/* TEXTO JUSTIFICADO */
+.quem-e-texto {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .quem-e-texto h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -78,6 +84,7 @@
   font-size: 1.1rem;
   line-height: 1.7;
   margin-top: 0.8rem;
+  text-align: justify;
 }
 
 /* aplica recuo só a partir do segundo parágrafo */
@@ -85,6 +92,7 @@
   text-indent: 2em;
 }
 
+/* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
   .quem-e-imagem {
     float: none;
@@ -93,9 +101,12 @@
     width: 120px;
     height: 120px;
   }
-    .quem-e-texto p {
-    font-size: 0.9rem; /* texto menor no mobile */
+  .quem-e-texto p {
+    font-size: 0.95rem; /* texto menor no mobile */
     line-height: 1.5;
+  }
+  .quem-e-texto h2 {
+    font-size: 1.6rem;
   }
 }
 </style>
