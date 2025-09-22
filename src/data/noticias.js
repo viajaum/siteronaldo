@@ -49,5 +49,26 @@ export const noticias = [
     `,
     imagem: "/images/noticias/noticia-2.jpg",
     categoria: "Produção Legislativa"
+  },
+  {
+    id: 3,
+    titulo: "Com muita alegria, assumi a presidência do PT Pelotas ✊🚩",
+    data: "2025-09-22",
+    resumo: "Ao lado de companheiros e companheiras, iniciamos uma nova etapa para fortalecer um PT enraizado, combativo e de resistência em Pelotas.",
+    conteudo: `
+      <p>Hoje assumi a <strong>presidência do Partido dos Trabalhadores de Pelotas</strong> com muita alegria e emoção. ✊🚩</p>
+
+      <p>Ao lado de pessoas tão especiais, construímos juntos um <strong>PT cada vez mais forte, enraizado e combativo</strong>. Tivemos a honra de estar com o nosso <strong>Galo Missioneiro, Olívio Dutra</strong>, com o companheiro <strong>Edegar Pretto</strong> e com o deputado <strong>Zé Nunes</strong>.</p>
+
+      <p>O <strong>PT é feito de cada militante</strong>, de cada companheira e companheiro que luta diariamente por justiça social, igualdade e democracia. São essas pessoas que somam forças, constroem pontes e fortalecem nossas raízes, fazendo do partido uma verdadeira casa de resistência e transformação. ✊⭐</p>
+
+      <p>Seguimos juntos nessa caminhada, com coragem e compromisso de fortalecer a luta popular e coletiva.</p>
+
+      <p style="margin-top:1rem; font-size:0.9rem; color:#666;">
+        #PTPelotas #PT #LutaColetiva #Transformação #Companheirismo #OlívioDutra #EdegarPretto #ZéNunes #GaloMissioneiro
+      </p>
+    `,
+    imagem: "/images/noticias/noticia-3.jpg",
+    categoria: "Notícias"
   }
 ];
