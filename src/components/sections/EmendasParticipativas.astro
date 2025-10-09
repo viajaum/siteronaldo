@@ -35,7 +35,7 @@
 </section>
 
 <style>
-#emendas-participativas {
+  #emendas-participativas {
   background-color: #3375cd;
   color: white;
   padding: 60px 0;
@@ -69,22 +69,16 @@
 }
 
 .carrossel {
-  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
+  transition: transform 0.8s ease-in-out;
 }
 
 .slide {
-  position: absolute;
-  top: 0; left: 0;
+  flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.slide.ativo {
-  opacity: 1;
 }
 
 .imagem-carrossel {
@@ -95,6 +89,7 @@
   margin: 0 auto;
 }
 
+/* Botões desktop */
 .carrossel-btn {
   position: absolute;
   top: 50%;
@@ -109,108 +104,85 @@
   z-index: 10;
   transition: all 0.3s;
 }
-
 .carrossel-btn:hover {
   background-color: rgba(0,0,0,0.8);
   transform: translateY(-50%) scale(1.1);
 }
-
 .anterior { left: 20px; }
 .proximo { right: 20px; }
 
-/* ===== MOBILE AJUSTADO ===== */
+/* Mobile */
 @media (max-width: 768px) {
-  .carrossel-container {
-    height: 500px;
-  }
-
-  .imagem-carrossel {
-    width: auto;              /* permite centralização horizontal */
-    height: 100%;
-    max-width: none;
-    object-fit: contain;
-    object-position: center center;  /* centraliza a imagem */
-    display: block;
-    margin: 0 auto;           /* centraliza no container */
-  }
+  .carrossel-container { height: 500px; }
+  .carrossel-btn { display: none; }
 }
 
 @media (max-width: 480px) {
-  .carrossel-btn { display: none; }
-  .carrossel-container {
-    height: 420px;
-  }
-
-  .imagem-carrossel {
-    width: auto;
-    height: 100%;
-    object-fit: contain;
-    object-position: center center;
-    display: block;
-    margin: 0 auto;
-  }
+  .carrossel-container { height: 420px; }
 }
 </style>
 
 <script is:inline>
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('#emendas-participativas .carrossel-container');
-  const slides = container.querySelectorAll('.slide');
-  const btnAnterior = container.querySelector('.anterior');
-  const btnProximo = container.querySelector('.proximo');
+  const carrossel = document.querySelector('#emendas-participativas .carrossel');
+  const slides = carrossel.querySelectorAll('.slide');
+  const btnAnterior = document.querySelector('.anterior');
+  const btnProximo = document.querySelector('.proximo');
   let current = 0;
-
-  function showSlide(index) {
-    slides.forEach((s, i) => s.classList.toggle('ativo', i === index));
-  }
-
-  btnProximo?.addEventListener('click', () => {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  });
-
-  btnAnterior?.addEventListener('click', () => {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
-  });
-
-  let interval = setInterval(() => {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  }, 5000);
-
-  container.addEventListener('mouseenter', () => clearInterval(interval));
-  container.addEventListener('mouseleave', () => {
-    interval = setInterval(() => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }, 5000);
-  });
-
-  // Swipe no mobile
   let startX = 0;
   let isDragging = false;
 
-  container.addEventListener('touchstart', e => {
+  function updateSlidePosition() {
+    carrossel.style.transform = `translateX(-${current * 100}%)`;
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    updateSlidePosition();
+  }
+
+  function prevSlide() {
+    current = (current - 1 + slides.length) % slides.length;
+    updateSlidePosition();
+  }
+
+  if (btnProximo && btnAnterior) {
+    btnProximo.addEventListener('click', nextSlide);
+    btnAnterior.addEventListener('click', prevSlide);
+  }
+
+  // Troca automática a cada 5s
+  let interval = setInterval(nextSlide, 5000);
+
+  carrossel.addEventListener('mouseenter', () => clearInterval(interval));
+  carrossel.addEventListener('mouseleave', () => {
+    interval = setInterval(nextSlide, 5000);
+  });
+
+  // --- Suporte ao arrastar no mobile ---
+  carrossel.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
     clearInterval(interval);
   });
 
-  container.addEventListener('touchend', e => {
+  carrossel.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = endX - startX;
-    if (Math.abs(diff) > 50) {
-      if (diff < 0) current = (current + 1) % slides.length;
-      else current = (current - 1 + slides.length) % slides.length;
-      showSlide(current);
-    }
+    const deltaX = e.touches[0].clientX - startX;
+    carrossel.style.transform = `translateX(calc(-${current * 100}% + ${deltaX}px))`;
+  });
+
+  carrossel.addEventListener('touchend', (e) => {
     isDragging = false;
-    interval = setInterval(() => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }, 5000);
+    const endX = e.changedTouches[0].clientX;
+    const deltaX = endX - startX;
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0) nextSlide();
+      else prevSlide();
+    } else {
+      updateSlidePosition();
+    }
+    interval = setInterval(nextSlide, 5000);
   });
 });
 </script>
