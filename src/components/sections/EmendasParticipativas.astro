@@ -1,0 +1,172 @@
+---
+// src/components/sections/EmendasParticipativas.astro
+---
+
+<section id="emendas-participativas">
+  <div class="conteudo-centralizado">
+    <div class="emendas-inner">
+      <h2 class="emendas-titulo">Emendas Participativas</h2>
+      <div class="carrossel-container">
+        <div class="carrossel">
+          <div class="slide ativo">
+            <img src="/images/emendas/emenda-1.jpg" alt="Emenda Participativa 1" class="imagem-carrossel">
+          </div>
+          <div class="slide">
+            <img src="/images/emendas/emenda-2.jpg" alt="Emenda Participativa 2" class="imagem-carrossel">
+          </div>
+          <div class="slide">
+            <img src="/images/emendas/emenda-3.jpg" alt="Emenda Participativa 3" class="imagem-carrossel">
+          </div>
+          <div class="slide">
+            <img src="/images/emendas/emenda-4.jpg" alt="Emenda Participativa 4" class="imagem-carrossel">
+          </div>
+          <div class="slide">
+            <img src="/images/emendas/emenda-5.jpg" alt="Emenda Participativa 5" class="imagem-carrossel">
+          </div>
+          <div class="slide">
+            <img src="/images/emendas/emenda-6.jpg" alt="Emenda Participativa 6" class="imagem-carrossel">
+          </div>
+        </div>
+        <button class="carrossel-btn anterior" aria-label="Foto anterior">❮</button>
+        <button class="carrossel-btn proximo" aria-label="Próxima foto">❯</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#emendas-participativas {
+  background-color: #f2a900;
+  color: white;
+  padding: 60px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.conteudo-centralizado {
+  max-width: 830px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.emendas-inner {
+  width: 100%;
+  max-width: 830px;
+  margin: 0 auto;
+}
+
+.emendas-titulo {
+  text-align: left;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.carrossel-container {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  text-align: center;
+  background: transparent;
+}
+
+.carrossel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.ativo {
+  opacity: 1;
+}
+
+.imagem-carrossel {
+  max-width: 90%;
+  max-height: 90vh;
+  margin: 0 auto;
+  object-fit: contain;
+  display: block;
+}
+
+.carrossel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.carrossel-btn:hover {
+  background-color: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.anterior { left: 20px; }
+.proximo { right: 20px; }
+
+@media (max-width: 768px) {
+  .emendas-titulo { padding-left: 0; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .carrossel-btn { padding: 10px 14px; font-size: 16px; }
+}
+</style>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('#emendas-participativas .slide');
+  const btnAnterior = document.querySelector('#emendas-participativas .anterior');
+  const btnProximo = document.querySelector('#emendas-participativas .proximo');
+  let currentSlide = 0;
+
+  // Inicializa todos os slides
+  slides.forEach((s, i) => s.classList.toggle('ativo', i === 0));
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('ativo', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  btnProximo.addEventListener('click', nextSlide);
+  btnAnterior.addEventListener('click', prevSlide);
+
+  // Troca automática suave
+  let slideInterval = setInterval(nextSlide, 5000);
+
+  const carrossel = document.querySelector('#emendas-participativas .carrossel-container');
+  carrossel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+  carrossel.addEventListener('mouseleave', () => { slideInterval = setInterval(nextSlide, 5000); });
+});
+</script>
