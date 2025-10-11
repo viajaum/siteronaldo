@@ -1,11 +1,9 @@
 ---
 // src/components/sections/EmendasParticipativas.astro
 ---
-
 <section id="emendas-participativas">
   <div class="conteudo-centralizado">
     <div class="emendas-inner">
-      <!-- <h2 class="emendas-titulo">Emendas Participativas</h2> -->
       <div class="carrossel-container">
         <div class="carrossel">
           <div class="slide ativo">
@@ -27,6 +25,8 @@
             <img src="/images/emendas/emenda-6.jpg" alt="Emenda Participativa 6" class="imagem-carrossel">
           </div>
         </div>
+
+        <!-- Botões de navegação -->
         <button class="carrossel-btn anterior" aria-label="Foto anterior">❮</button>
         <button class="carrossel-btn proximo" aria-label="Próxima foto">❯</button>
       </div>
@@ -35,7 +35,7 @@
 </section>
 
 <style>
-  #emendas-participativas {
+#emendas-participativas {
   background-color: #3375cd;
   color: white;
   padding: 60px 0;
@@ -82,11 +82,13 @@
 }
 
 .imagem-carrossel {
-  width: 100%;
+  width: auto;
   height: 100%;
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
 /* Botões desktop */
@@ -151,37 +153,23 @@ document.addEventListener('DOMContentLoaded', () => {
     btnAnterior.addEventListener('click', prevSlide);
   }
 
-  // Troca automática a cada 5s
+  // Troca automática
   let interval = setInterval(nextSlide, 5000);
-
   carrossel.addEventListener('mouseenter', () => clearInterval(interval));
-  carrossel.addEventListener('mouseleave', () => {
-    interval = setInterval(nextSlide, 5000);
-  });
+  carrossel.addEventListener('mouseleave', () => { interval = setInterval(nextSlide, 5000); });
 
-  // --- Suporte ao arrastar no mobile ---
-  carrossel.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    clearInterval(interval);
-  });
-
+  // Arraste mobile
+  carrossel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; isDragging = true; clearInterval(interval); });
   carrossel.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const deltaX = e.touches[0].clientX - startX;
     carrossel.style.transform = `translateX(calc(-${current * 100}% + ${deltaX}px))`;
   });
-
   carrossel.addEventListener('touchend', (e) => {
     isDragging = false;
-    const endX = e.changedTouches[0].clientX;
-    const deltaX = endX - startX;
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX < 0) nextSlide();
-      else prevSlide();
-    } else {
-      updateSlidePosition();
-    }
+    const deltaX = e.changedTouches[0].clientX - startX;
+    if (Math.abs(deltaX) > 50) deltaX < 0 ? nextSlide() : prevSlide();
+    else updateSlidePosition();
     interval = setInterval(nextSlide, 5000);
   });
 });
