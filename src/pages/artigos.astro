@@ -1,5 +1,4 @@
 ---
-// src/pages/artigos/index.astro
 import Banner from '@components/Banner.astro';
 import Menu from '@components/Menu.astro';
 import { noticias } from '@data/noticias';
@@ -8,8 +7,8 @@ const formatarData = (data) => {
   return new Date(data).toLocaleDateString('pt-BR');
 }
 
-// Filtrar apenas itens da categoria "Artigos"
-const artigos = noticias.filter(item => item.categoria === "Artigos");
+// Filtrar apenas itens da categoria "Agendas"
+const agendas = noticias.filter(item => item.categoria === "Agendas");
 ---
 
 <!DOCTYPE html>
@@ -17,13 +16,44 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artigos</title>
+  <title>Agendas - Ronaldo Quadrado</title>
+  <meta name="description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://ronaldoquadrado.com/agendas" />
+
+  <!-- FAVICON E MANIFEST -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Ronaldo Quadrado" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:title" content="Agendas - Ronaldo Quadrado" />
+  <meta property="og:description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+  <meta property="og:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
+  <meta property="og:url" content="https://ronaldoquadrado.com/agendas" />
+  <meta property="og:type" content="website" />
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agendas - Ronaldo Quadrado" />
+  <meta name="twitter:description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+  <meta name="twitter:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Agendas - Ronaldo Quadrado",
+    "url": "https://ronaldoquadrado.com/agendas",
+    "description": "Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas."
+  }}
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -38,7 +68,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
       padding: 20px;
     }
 
-    .artigos-container {
+    .agendas-container {
       margin-top: 20px;
     }
 
@@ -48,7 +78,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
       border-bottom: 1px solid #eee;
     }
 
-    .artigo-link {
+    .agenda-link {
       text-decoration: none;
       color: inherit;
       display: flex;
@@ -60,7 +90,7 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
       flex: 0 0 300px;
     }
 
-    .imagemartigo {
+    .imagemagenda {
       width: 100%;
       height: auto;
       border-radius: 4px;
@@ -87,9 +117,8 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
       color: #d42f2e;
     }
 
-    /* Media queries para responsividade */
     @media screen and (max-width: 768px) {
-      .artigo-link {
+      .agenda-link {
         flex-direction: column;
       }
 
@@ -121,22 +150,22 @@ const artigos = noticias.filter(item => item.categoria === "Artigos");
   <Menu />
 
   <div class="main-container">
-    <h1>Artigos</h1>
+    <h1>Agendas</h1>
 
-    <div class="artigos-container">
-      {artigos.sort((a, b) => new Date(b.data) - new Date(a.data)).map((artigo) => (
-        <article key={artigo.id}>
-          <a href={`/noticias/${artigo.id}`} class="artigo-link">
+    <div class="agendas-container">
+      {agendas.sort((a, b) => new Date(b.data) - new Date(a.data)).map((agenda) => (
+        <article key={agenda.id}>
+          <a href={`/noticias/${agenda.id}`} class="agenda-link">
             <div class="imagem-container">
-              <img src={artigo.imagem} alt={`Imagem do artigo ${artigo.titulo}`} class="imagemartigo" />
+              <img src={agenda.imagem} alt={`Imagem da agenda ${agenda.titulo}`} class="imagemagenda" />
             </div>
             <div class="info-container">
-              <h2>{artigo.titulo}</h2>
-              <p>{formatarData(artigo.data)}</p>
-              <p>{artigo.resumo}</p>
+              <h2>{agenda.titulo}</h2>
+              <p>{formatarData(agenda.data)}</p>
+              <p>{agenda.resumo}</p>
             </div>
           </a>
-          <a class="leiamais" href={`/noticias/${artigo.id}`}>Ler artigo completo</a>
+          <a class="leiamais" href={`/noticias/${agenda.id}`}>Saiba mais</a>
         </article>
       ))}
     </div>

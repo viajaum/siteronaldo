@@ -1,12 +1,9 @@
 ---
-// src/pages/producao-legislativa/index.astro
 import Banner from '@components/Banner.astro';
 import Menu from '@components/Menu.astro';
 import { noticias } from '@data/noticias';
 
-const formatarData = (data) => {
-  return new Date(data).toLocaleDateString('pt-BR');
-}
+const formatarData = (data) => new Date(data).toLocaleDateString('pt-BR');
 
 // Filtrar apenas itens da categoria "Produção Legislativa"
 const producaoLegislativa = noticias.filter(item => item.categoria === "Produção Legislativa");
@@ -15,15 +12,47 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produç�
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produção Legislativa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produção Legislativa - Ronaldo Quadrado</title>
+  <meta name="description" content="Acompanhe a produção legislativa do vereador Ronaldo Quadrado, projetos e iniciativas em Pelotas." />
+
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://ronaldoquadrado.com/producao-legislativa" />
+
+  <!-- FAVICON E MANIFEST -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Ronaldo Quadrado" />
-  <link rel="manifest" href="/site.webmanifest" />  <style>
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:title" content="Produção Legislativa - Ronaldo Quadrado" />
+  <meta property="og:description" content="Acompanhe a produção legislativa do vereador Ronaldo Quadrado, projetos e iniciativas em Pelotas." />
+  <meta property="og:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
+  <meta property="og:url" content="https://ronaldoquadrado.com/producao-legislativa" />
+  <meta property="og:type" content="website" />
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Produção Legislativa - Ronaldo Quadrado" />
+  <meta name="twitter:description" content="Acompanhe a produção legislativa do vereador Ronaldo Quadrado, projetos e iniciativas em Pelotas." />
+  <meta name="twitter:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
+
+  <!-- JSON-LD da página -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Produção Legislativa - Ronaldo Quadrado",
+    "url": "https://ronaldoquadrado.com/producao-legislativa",
+    "description": "Acompanhe a produção legislativa do vereador Ronaldo Quadrado, projetos e iniciativas em Pelotas."
+  }}
+  </script>
+
+  <style>
     body {
       margin: 0;
       padding: 0;
@@ -92,7 +121,6 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produç�
       margin-top: 5px;
     }
 
-    /* Media queries para responsividade */
     @media screen and (max-width: 768px) {
       .producao-link {
         flex-direction: column;
@@ -118,13 +146,14 @@ const producaoLegislativa = noticias.filter(item => item.categoria === "Produç�
       h2 {
         font-size: 1.3rem;
       }
-      
+
       .detalhes-legislativos {
         font-size: 0.85em;
       }
     }
   </style>
 </head>
+
 <body>
   <Banner />
   <Menu />

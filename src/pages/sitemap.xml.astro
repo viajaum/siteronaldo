@@ -1,0 +1,31 @@
+---
+// src/pages/sitemap.xml.astro
+import { noticias } from '@data/noticias';
+
+// URLs fixas do site
+const paginasFixas = [
+  { loc: '/', priority: 1.0 },
+  { loc: '/noticias', priority: 0.9 },
+  { loc: '/producao-legislativa', priority: 0.9 },
+  { loc: '/fotos', priority: 0.7 },
+  { loc: '/agendas', priority: 0.9 },
+];
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  {paginasFixas.map(page => (
+    <url>
+      <loc>https://ronaldoquadrado.com{page.loc}</loc>
+      <priority>{page.priority}</priority>
+    </url>
+  ))}
+
+  {noticias.map(noticia => (
+    <url>
+      <loc>https://ronaldoquadrado.com/noticias/{noticia.id}</loc>
+      <priority>0.8</priority>
+      <lastmod>{new Date(noticia.data).toISOString()}</lastmod>
+    </url>
+  ))}
+</urlset>

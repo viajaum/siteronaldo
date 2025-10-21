@@ -1,5 +1,4 @@
 ---
-// src/pages/fotos/index.astro
 import Banner from '../../components/Banner.astro';
 import Menu from '../../components/Menu.astro';
 ---
@@ -7,82 +6,111 @@ import Menu from '../../components/Menu.astro';
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Em Breve - Ronaldo Quadrado</title>
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Ronaldo Quadrado" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <style>
-        /* ===== ESTILOS GLOBAIS ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Em Breve - Ronaldo Quadrado</title>
+  <meta name="description" content="Em breve, fotos e conteúdos especiais do vereador Ronaldo Quadrado em Pelotas. Fique ligado!" />
+  
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://ronaldoquadrado.com/fotos" />
 
-        body {
-            font-family: Arial, sans-serif;
-            color: #444040;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <!-- FAVICON E MANIFEST -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Ronaldo Quadrado" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-        main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
-        }
+  <!-- OPEN GRAPH -->
+  <meta property="og:title" content="Em Breve - Ronaldo Quadrado" />
+  <meta property="og:description" content="Em breve, fotos e conteúdos especiais do vereador Ronaldo Quadrado em Pelotas. Fique ligado!" />
+  <meta property="og:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
+  <meta property="og:url" content="https://ronaldoquadrado.com/fotos" />
+  <meta property="og:type" content="website" />
 
-        h1 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 1rem;
-        }
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Em Breve - Ronaldo Quadrado" />
+  <meta name="twitter:description" content="Em breve, fotos e conteúdos especiais do vereador Ronaldo Quadrado em Pelotas. Fique ligado!" />
+  <meta name="twitter:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
 
-        p {
-            font-size: 1.2rem;
-            color: #fff;
-        }
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Em Breve - Ronaldo Quadrado",
+    "url": "https://ronaldoquadrado.com/fotos",
+    "description": "Em breve, fotos e conteúdos especiais do vereador Ronaldo Quadrado em Pelotas. Fique ligado!"
+  }}
+  </script>
 
-        .aviso {
-            background-color: rgba(0,0,0,0.4);
-            padding: 2rem;
-            border-radius: 10px;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* ===== RESPONSIVO ===== */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
-            }
+    body {
+      font-family: Arial, sans-serif;
+      color: #444040;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-            p {
-                font-size: 1rem;
-            }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
 
-            .aviso {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .aviso {
+      background-color: rgba(0,0,0,0.4);
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .aviso {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <Banner />
-    <Menu />
+  <Banner />
+  <Menu />
 
-    <main>
-        <div class="aviso">
-            <h1>Em breve! 🚧</h1>
-            <p>Estamos preparando conteúdo especial para você. Fique ligado!</p>
-        </div>
-    </main>
+  <main>
+    <div class="aviso">
+      <h1>Em breve! 🚧</h1>
+      <p>Estamos preparando conteúdo especial para você. Fique ligado!</p>
+    </div>
+  </main>
 </body>
 </html>
