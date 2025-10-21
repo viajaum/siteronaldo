@@ -4,7 +4,7 @@ import Banner from '../components/Banner.astro';
 import Menu from '../components/Menu.astro';
 import Rodape from '../components/Rodape.astro';
 import QuemE from '../components/sections/QuemE.astro';
-import Geral from '../components/sections/Geral.astro'; // Agora inclui Notícias
+import Geral from '../components/sections/Geral.astro'; 
 import Galeria from '../components/sections/Galeria.astro';
 import RedesSociais from '../components/sections/RedesSociais.astro';
 import Contato from '../components/sections/Contato.astro';
@@ -18,36 +18,42 @@ import EmendasParticipativas from '../components/sections/EmendasParticipativas.
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Vítor Gomes @viajaum">
   <meta name="language" content="pt-BR">
-  <title>Ronaldo Quadrado - PT Pelotas</title>
-  <meta name="description" content="Site oficial de Ronaldo Quadrado, PT Pelotas. Notícias, projetos e informações de contato.">
-  <meta name="keywords" content="Ronaldo Quadrado, PT Pelotas, política, Pelotas">
   <meta name="robots" content="index, follow">
+  <title>Ronaldo Quadrado - PT Pelotas</title>
+  <meta name="description" content="Site oficial de Ronaldo Quadrado, vereador do PT em Pelotas. Notícias, projetos, iniciativas e formas de contato.">
+  <meta name="keywords" content="Ronaldo Quadrado, PT Pelotas, vereador, política, Pelotas, Partido dos Trabalhadores">
+
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://ronaldoquadrado.com/" />
+
+  <!-- FAVICON E MANIFEST -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Ronaldo Quadrado" />
   <link rel="manifest" href="/site.webmanifest" />
-  
-  <!-- Open Graph -->
+
+  <!-- OPEN GRAPH -->
   <meta property="og:title" content="Ronaldo Quadrado - PT Pelotas">
-  <meta property="og:description" content="Site oficial de Ronaldo Quadrado, PT Pelotas. Notícias, projetos e informações de contato.">
+  <meta property="og:description" content="Site oficial de Ronaldo Quadrado, vereador do PT em Pelotas. Notícias, projetos e informações de contato.">
   <meta property="og:image" content="https://ronaldoquadrado.com/favicon-96x96.png">
   <meta property="og:url" content="https://ronaldoquadrado.com/">
   <meta property="og:type" content="website">
 
-  <!-- Twitter Card -->
+  <!-- TWITTER -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ronaldo Quadrado - PT Pelotas">
-  <meta name="twitter:description" content="Site oficial de Ronaldo Quadrado, PT Pelotas. Notícias, projetos e informações de contato.">
+  <meta name="twitter:description" content="Site oficial de Ronaldo Quadrado, vereador do PT em Pelotas. Notícias, projetos e informações de contato.">
   <meta name="twitter:image" content="https://ronaldoquadrado.com/favicon-96x96.png">
 
+  <!-- SCHEMA.ORG -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Ronaldo Quadrado",
-    "jobTitle": "Político",
+    "jobTitle": "Vereador",
     "affiliation": {
       "@type": "Organization",
       "name": "Partido dos Trabalhadores (PT)"
@@ -63,6 +69,19 @@ import EmendasParticipativas from '../components/sections/EmendasParticipativas.
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ronaldo Quadrado - PT Pelotas",
+    "url": "https://ronaldoquadrado.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ronaldoquadrado.com/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
   <style>
     /* ===== ESTILOS GLOBAIS ===== */
