@@ -13,6 +13,7 @@
     "@splidejs/splide": "^4.1.4",
     "astro": "^5.0.8",
     "flickr-sdk": "^7.0.0-beta.9",
+    "sharp": "^0.34.4",
     "swiper": "^11.1.15"
   },
   "devDependencies": {
