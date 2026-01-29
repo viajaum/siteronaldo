@@ -8,7 +8,7 @@ const formatarData = (data) => {
 }
 
 // Filtrar apenas itens da categoria "Agendas"
-const agendas = noticias.filter(item => item.categoria === "Agendas");
+const agendas = noticias.filter(item => item.categoria === "Artigos");
 ---
 
 <!DOCTYPE html>
@@ -16,11 +16,11 @@ const agendas = noticias.filter(item => item.categoria === "Agendas");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agendas - Ronaldo Quadrado</title>
-  <meta name="description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+  <title>Artigos - Ronaldo Quadrado</title>
+  <meta name="description" content="Confira os artigos do vereador Ronaldo Quadrado. Fique por dentro das análises e opiniões sobre temas relevantes." />
 
   <!-- CANONICAL -->
-  <link rel="canonical" href="https://ronaldoquadrado.com/agendas" />
+  <link rel="canonical" href="https://ronaldoquadrado.com/artigos" />
 
   <!-- FAVICON E MANIFEST -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -31,16 +31,16 @@ const agendas = noticias.filter(item => item.categoria === "Agendas");
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- OPEN GRAPH -->
-  <meta property="og:title" content="Agendas - Ronaldo Quadrado" />
-  <meta property="og:description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+  <meta property="og:title" content="Artigos - Ronaldo Quadrado" />
+  <meta property="og:description" content="Confira os artigos do vereador Ronaldo Quadrado. Fique por dentro das análises e opiniões sobre temas relevantes." />
   <meta property="og:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
-  <meta property="og:url" content="https://ronaldoquadrado.com/agendas" />
+  <meta property="og:url" content="https://ronaldoquadrado.com/artigos" />
   <meta property="og:type" content="website" />
 
   <!-- TWITTER -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agendas - Ronaldo Quadrado" />
-  <meta name="twitter:description" content="Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas." />
+  <meta name="twitter:title" content="Artigos - Ronaldo Quadrado" />
+  <meta name="twitter:description" content="Confira os artigos do vereador Ronaldo Quadrado. Fique por dentro das análises e opiniões sobre temas relevantes." />
   <meta name="twitter:image" content="https://ronaldoquadrado.com/favicon-96x96.png" />
 
   <!-- JSON-LD -->
@@ -48,9 +48,9 @@ const agendas = noticias.filter(item => item.categoria === "Agendas");
   {{
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Agendas - Ronaldo Quadrado",
-    "url": "https://ronaldoquadrado.com/agendas",
-    "description": "Confira as agendas do vereador Ronaldo Quadrado. Fique por dentro dos compromissos e eventos em Pelotas."
+    "name": "Artigos - Ronaldo Quadrado",
+    "url": "https://ronaldoquadrado.com/artigos",
+    "description": "Confira os artigos do vereador Ronaldo Quadrado. Fique por dentro das análises e opiniões sobre temas relevantes."
   }}
   </script>
 
@@ -150,7 +150,7 @@ const agendas = noticias.filter(item => item.categoria === "Agendas");
   <Menu />
 
   <div class="main-container">
-    <h1>Agendas</h1>
+    <h1>Artigos</h1>
 
     <div class="agendas-container">
       {agendas.sort((a, b) => new Date(b.data) - new Date(a.data)).map((agenda) => (
