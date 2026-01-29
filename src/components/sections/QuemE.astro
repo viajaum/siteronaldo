@@ -2,112 +2,187 @@
 // src/components/sections/QuemE.astro
 ---
 
-<!-- Importando Inter do Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-<div id="queme" class="quem-e-container">
-  <div class="quem-e-wrapper">
-    <div class="quem-e-retangulo">
-      
-<picture>
-  <source srcset="/images/queme.webp" type="image/webp">
-  <img src="/images/queme.jpg" alt="Ronaldo Quadrado" class="quem-e-imagem" loading="lazy">
-</picture>
-      <div class="quem-e-texto">
-        <h2>Quem é?</h2>
-          <p>Filho de Lia e Leovaldo, iniciei minha militância política no movimento estudantil secundarista da Escola Joaquim Duval. Mais tarde, na Universidade Federal de Pelotas (UFPel), atuei no Centro Acadêmico do curso de História e cheguei à coordenação geral do Diretório Central dos Estudantes (DCE).</p>
-          
-          <p>Minha caminhada também inclui o trabalho comunitário: fui Agente Comunitário de Saúde no Monte Bonito e, por duas vezes, eleito Conselheiro Tutelar. No Partido dos Trabalhadores, exerci diversas funções — Secretário de Juventude, Secretário-Geral, Vice-presidente e, no PED de 2025, tive a honra e a alegria de ser eleito Presidente Municipal.</p>
+<section id="queme" class="quem-e-container">
+  <div class="quem-e-retangulo">
 
-          <p>Atuei ainda como assessor do ex-deputado federal Fernando Marroni e do deputado estadual Edegar Pretto, durante sua presidência na Assembleia Legislativa do Rio Grande do Sul. Também fui estagiário na TV Câmara, experiências que ampliaram minha formação política e o compromisso com a vida pública.</p>
-          
-          <p>Minha trajetória sempre esteve vinculada à mobilização popular e ao trabalho coletivo. Esse espírito segue como base do mandato, construído de forma participativa e democrática, junto de movimentos sociais, sindicatos, juventude e trabalhadores do campo e da cidade que fazem Pelotas acontecer.</p>
-          
-          <p>Acredito que o PT é a principal ferramenta de transformação da classe trabalhadora e continuará sendo resistência: enfrentando o fascismo, defendendo os serviços públicos e garantindo que as pautas populares não sejam silenciadas. Seguimos firmes, com coragem e compromisso, inspirados pelo exemplo do presidente Lula, que mostrou ao Brasil e ao mundo que a política pode transformar vidas.</p>
-          
-          <p>Por isso, este mandato não é individual. É coletivo — e continuará sendo assim.</p>
+    <div class="quem-e-texto">
+      <h2>Quem é?</h2>
+
+      <!-- imagem flutuante -->
+      <picture>
+        <source srcset="/images/queme.webp" type="image/webp">
+        <img
+          src="/images/queme.jpg"
+          alt="Ronaldo Quadrado"
+          class="quem-e-imagem"
+          loading="lazy"
+        />
+      </picture>
+
+      <!-- ÁREA FIXA DO TEXTO -->
+      <div class="texto-area">
+        <div class="texto-parte ativa">
+          <p>
+            Filho de Lia e Leovaldo, iniciei minha militância política no movimento
+            estudantil secundarista da Escola Joaquim Duval. Mais tarde, na
+            Universidade Federal de Pelotas (UFPel), atuei no Centro Acadêmico do
+            curso de História e cheguei à coordenação geral do Diretório Central dos
+            Estudantes (DCE).
+          </p>
+          <p>
+            Minha caminhada também inclui o trabalho comunitário: fui Agente
+            Comunitário de Saúde no Monte Bonito e, por duas vezes, eleito
+            Conselheiro Tutelar. No Partido dos Trabalhadores, exerci diversas
+            funções — Secretário de Juventude, Secretário-Geral, Vice-presidente e,
+            no PED de 2025, fui eleito Presidente Municipal.
+          </p>
+        </div>
+
+        <div class="texto-parte">
+          <p>
+            Atuei ainda como assessor do ex-deputado federal Fernando Marroni e do
+            deputado estadual Edegar Pretto, durante sua presidência na Assembleia
+            Legislativa do Rio Grande do Sul.
+          </p>
+          <p>
+            Minha trajetória sempre esteve vinculada à mobilização popular e ao
+            trabalho coletivo, junto de movimentos sociais, sindicatos e
+            trabalhadores do campo e da cidade.
+          </p>
+        </div>
+
+        <div class="texto-parte">
+          <p>
+            Acredito que o PT é a principal ferramenta de transformação da classe
+            trabalhadora e seguirá como resistência, enfrentando o fascismo e
+            defendendo os serviços públicos.
+          </p>
+          <p>
+            Este mandato não é individual. É coletivo — e continuará sendo assim.
+          </p>
+        </div>
       </div>
+
+      <!-- continuar textual -->
+      <span class="continuar-texto">Continuar →</span>
     </div>
+
   </div>
-</div>
+</section>
 
 <style>
+#queme {
+  position: relative;
+  z-index: 3;
+}
+
 .quem-e-container {
   max-width: 830px;
-  width: 100%;
   margin: 40px auto;
   padding: 0 20px;
-  position: relative;
-  z-index: 10;
+  font-family: 'Inter', sans-serif;
 }
 
 .quem-e-retangulo {
   background-color: #fc7804;
-  border-radius: 8px;
-  padding: 40px;
-  position: relative;
-  z-index: 10;
   color: white;
-  font-family: 'Inter', sans-serif; 
+  border-radius: 8px;
+  padding: 32px;
 }
 
-/* clearfix para o float da imagem */
-.quem-e-retangulo::after {
-  content: "";
-  display: block;
-  clear: both;
+/* texto */
+.quem-e-texto h2 {
+  margin-top: 0;
 }
 
-/* imagem flutuando à esquerda */
+/* imagem flutuante */
 .quem-e-imagem {
+  width: 140px;
+  height: 140px;
   float: left;
-  margin: 0 20px 20px 0;
-  width: 150px;
-  height: 150px;
+  margin: 4px 20px 12px 0;
   border-radius: 8px;
   border: 4px solid white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   object-fit: cover;
 }
 
-/* TEXTO JUSTIFICADO */
-.quem-e-texto {
-  text-align: justify;
-  text-justify: inter-word;
+/* área fixa */
+.texto-area {
+  height: 250px; /* ajuste aqui se precisar */
 }
 
-.quem-e-texto h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+/* partes */
+.texto-parte {
+  display: none;
+}
+
+.texto-parte.ativa {
+  display: block;
+}
+
+.texto-parte p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  text-align: justify;
+  text-indent: 1.5em; /* 👈 recuo */
+}
+
+/* continuar como texto */
+.continuar-texto {
+  display: block;
+  margin-top: 8px;
   font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  text-align: right; /* 👈 direita garantida */
 }
 
-.quem-e-texto p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-top: 0.8rem;
-  text-align: justify;
+.continuar-texto:hover {
+  text-decoration: underline;
 }
 
-.quem-e-texto p:not(:first-of-type) {
-  text-indent: 2em;
-}
-
-/* ===== RESPONSIVO ===== */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .quem-e-imagem {
     float: none;
     display: block;
-    margin: 0 auto 20px auto;
-    width: 120px;
-    height: 120px;
+    margin: 0 auto 16px auto;
   }
-  .quem-e-texto p {
-    font-size: 0.75rem; /* texto menor no mobile */
-    line-height: 1.5;
+
+  .texto-area {
+    height: 500px;
   }
-  .quem-e-texto h2 {
-    font-size: 1.6rem;
+
+  .texto-parte p {
+    font-size: 0.95rem;
+  }
+
+  .continuar-texto {
+    display: block;
+    text-align: center;
   }
 }
 </style>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  const partes = document.querySelectorAll('#queme .texto-parte');
+  const continuar = document.querySelector('#queme .continuar-texto');
+
+  let atual = 0;
+
+  continuar.addEventListener('click', () => {
+    partes[atual].classList.remove('ativa');
+    atual = (atual + 1) % partes.length;
+    partes[atual].classList.add('ativa');
+
+    continuar.textContent =
+      atual === partes.length - 1
+        ? 'Voltar ao início'
+        : 'Continuar →';
+  });
+});
+</script>

@@ -124,6 +124,7 @@ import EmendasParticipativas from '../components/sections/EmendasParticipativas.
       position: relative;
       margin-bottom: -230px;
       overflow: hidden;
+      z-index: 1; /* camada base */
     }
 
     .video-container video {
@@ -131,6 +132,7 @@ import EmendasParticipativas from '../components/sections/EmendasParticipativas.
       height: 100%;
       object-fit: cover;
       display: block;
+      z-index: 0;        /* vídeo */
     }
 
     /* overlay escuro */
@@ -143,6 +145,7 @@ import EmendasParticipativas from '../components/sections/EmendasParticipativas.
       height: 100%;
       background: rgba(0,0,0,0.5); /* ajuste intensidade */
       pointer-events: none;
+      z-index: 1;        /* overlay */
     }
     
     /* ===== BOTÃO WHATSAPP ===== */
